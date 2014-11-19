@@ -40,8 +40,8 @@ jQuery(document).ready(function() {
   detect_viewingmode();
 
   initBrowserWarning();
-  initDnD();
-  initExamples();
+//MEI  initDnD();
+//MEI  initExamples();
 
   ren3d = null;
   configurator = function() {
@@ -78,6 +78,13 @@ jQuery(document).ready(function() {
     }
   });
 
+/* MEI, process for the camera position first */
+  camera_x = ('camera_x' in argsParsed)? (argsParsed['camera_x']):0;
+  camera_y = ('camera_y' in argsParsed)? (argsParsed['camera_y']):-500;
+  camera_z = ('camera_z' in argsParsed)? (argsParsed['camera_z']):0;
+  console.log("user camera position->("+camera_x+","+camera_y+","+camera_z+")");
+  ren3d_camera_position = [camera_x, camera_y, camera_z]; 
+
   if ('14yrold' in argsParsed) {
 
     load14yrold();
@@ -96,13 +103,19 @@ jQuery(document).ready(function() {
   } else if ('url' in argsParsed) {
 
     console.log('Found url ' + argsParsed['url']);
+//MEI
+    var _url=argsParsed['url'];
+    selectfiles([{"name":_url, "size":0}]);
 
   } else {
 
     //for (var a in argsParsed) {
     var _url = document.location.search;
     if (_url.length > 1) {
-      loadFile(document.location.search.substring(1));
+//MEI
+      _url=document.location.search.substring(1);
+      console.log('Found plain args..'+_url);
+      loadFile(_url);
     }
     //}
 
