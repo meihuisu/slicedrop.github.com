@@ -27,6 +27,13 @@
 
 */
 
+function isArray(o) {
+  return Object.prototype.toString.call(o) == "[object Array]";
+}
+function isFile(o) {
+  return Object.prototype.toString.call(o) == "[object File]";
+}
+
 function initializeRenderers(){
 
   if (ren3d) {
@@ -286,19 +293,39 @@ function createData() {
 
 }
 
-//
+/*MEI*/var remote=true;
+//MEI var remote_data_location = 'http://jacoby.isi.edu/data/';
+/*MEI*/var remote_data_location = 'http://localhost/data/';
+
 // Reading files using the HTML5 FileReader.
+// if 'files' is a list of 'type File' or using xmlhttprequest 
+// or, if 'files' is an array list of {name:'file', size:0 }
 //
 function read(files) {
 
   createData();
 
   // show share button
-  $('#share').show();
+//MEI  $('#share').show();
+
+  var array_files;
+  if( isArray(files) ) {
+      array_files = files;
+      remote=true;
+  } else {
+      array_files= new Array();
+      for ( var j = 0; j < files.length; j++) {
+          array_files.push( { 'name': files[j].name, 'size':files[j].size });
+      }
+  }
 
   for ( var i = 0; i < files.length; i++) {
 
    var f = files[i];
+   if (remote) {
+      f=array_files[i];
+   }
+
    var _fileName = f.name;
    var _fileExtension = _fileName.split('.').pop().toUpperCase();
 
@@ -396,19 +423,46 @@ function read(files) {
 
      _data[v]['file'].forEach(function(u) {
 
-       var reader = new FileReader();
+     // either FILE type or json object type(myfile)
+       if ( isFile(u) ) {
+           var reader = new FileReader();
 
-       reader.onerror = errorHandler;
-       reader.onload = (loadHandler)(v,u); // bind the current type
+           reader.onerror = errorHandler;
+           reader.onload = (loadHandler)(v,u); // bind the current type
 
-       // start reading this file
-       reader.readAsArrayBuffer(u);
-
-
-     });
-
+           // start reading this file
+           reader.readAsArrayBuffer(u);
+       } else {
+//MEI
+           var myfile=u.name;
+           var _file = remote_data_location + myfile;
+           if (myfile.substring(0,4) == 'http') {
+               // external url detected
+window.console.log(' >>REMOTE<<, Using external supplied data url: ' + myfile);
+              _file = myfile;
+           } else {
+window.console.log('Using data url: ' + _file);
+           }
+	   var http_request= new XMLHttpRequest();
+           http_request.onreadystatechange = function() {
+              if (this.readyState == 4 && this.status == 200) {
+                  window.console.timeEnd('httpRequestTime');
+                  var remote_data=http_request.response;
+                  _data[v]['filedata'][_data[v]['file'].indexOf(u)] = remote_data;
+                  _numberRead++;
+window.console.log(" >>REMOTE<<, _data index is at ->" + _data[v]['file'].indexOf(u));
+                  if (_numberRead == _numberOfFiles) {
+                      parse(_data);
+                  }
+              }
+           }
+           http_request.open('GET', _file, true);
+           http_request.responseType='arraybuffer';
+           window.console.time('httpRequestTime');
+           http_request.send(null);
+      }
+    });
    }
-
   });
 
 };
@@ -550,7 +604,9 @@ function parse(data) {
 
   }
 
-  ren3d.camera.position = [0,500,0];
+//MEI
+  ren3d.camera.position = ren3d_camera_position;
+
   ren3d.render();
 
 };

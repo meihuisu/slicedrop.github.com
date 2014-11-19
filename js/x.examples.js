@@ -35,12 +35,17 @@ function loadFile(file) {
   }
 
   var _file = 'http://x.babymri.org/?' + file;
+//MEI
+  _file = 'http://localhost/data/' + file;
 
   if (file.substring(0,4) == 'http') {
     // external url detected
     console.log('Using external data url: ' + file);
     _file = file;
   }
+
+// MEI
+  console.log("in example loadFile url is -- "+_file);
 
   // now switch to the viewer
   switchToViewer();
@@ -82,6 +87,9 @@ function loadFile(file) {
 
   }
 
+//MEI
+  ren3d.camera.position = ren3d_camera_position;
+
   ren3d.render();
 
   configurator = function() {
@@ -105,7 +113,7 @@ function loadFile(file) {
       }
 
       // show the dropbox icon
-      $('#share').show();
+//MEI      $('#share').show();
 
   };
 
