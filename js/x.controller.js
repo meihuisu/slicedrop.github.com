@@ -139,7 +139,10 @@ function setupUi() {
   } else {
 
     var combobox = document.getElementById("scalars-selector");
-    combobox.disabled = true;
+//MEI
+    if(combobox) {
+        combobox.disabled = true;
+    }
     jQuery("#threshold-scalars").dragslider("option", "disabled", true);
 
   }

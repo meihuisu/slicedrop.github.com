@@ -80,7 +80,7 @@ jQuery(document).ready(function() {
 
 /* MEI, process for the camera position first */
   camera_x = ('camera_x' in argsParsed)? (argsParsed['camera_x']):0;
-  camera_y = ('camera_y' in argsParsed)? (argsParsed['camera_y']):-500;
+  camera_y = ('camera_y' in argsParsed)? (argsParsed['camera_y']):-100;
   camera_z = ('camera_z' in argsParsed)? (argsParsed['camera_z']):0;
   console.log("user camera position->("+camera_x+","+camera_y+","+camera_z+")");
   ren3d_camera_position = [camera_x, camera_y, camera_z]; 
