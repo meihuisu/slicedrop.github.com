@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<head>
+<title >Images Dashboard</title>
+
+<!-- style info -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
+
+<script src="js/jquery.js"></script>
+<script src="js/jquery.tools.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="css/tabs-standalone.css"/>
+<link rel="stylesheet" type="text/css" href="css/tabs-no-images.css"/>
+
+<style>
+iframe {
+    display: block;
+    margin: 0 auto;
+    background-color: #777;
+}
+
+body { background-color: #383B3D; }
+
+p.text {
+    font: 20px sans-serif;
+    color: white;
+}
+
+
+</style>
+
+</head>
+
+<body>
+<h1 style="color: white; text-align:left; font-size:2em; margin-left:2em" >Images</h1>
+<br>
+
+  <div>
+    <p class='text' >
+    bone 
+<iframe src="view.html?url=http://jacoby.isi.edu/data/bone.nii&camera_y=500" width="600" height="400" scrolling="yes" frameborder="0"></iframe>
+    </p>
+  </div>
+  <br>
+
+  <div>
+    <p class='text' >
+    head
+<iframe src="view.html?url=http://jacoby.isi.edu/data/mAN261_Cor_60.nii&camera_y=-800" width="300" height="200" scrolling="yes" frameborder="0"></iframe>
+    </p>
+  </div>
+  <br>
+
+  <div>
+    <p class='text' >
+    head 2
+<iframe src="view.html?url=http://jacoby.isi.edu/data/hs01_25aug10.nii&camera_y=400" width="600" height="400" scrolling="yes" frameborder="0"></iframe>
+    </p>
+  </div>
+
+  <div style='width=600; height=400;'>
+    <p class='text'>
+    others
+    <div style='display:block;float:left; width:50%; overflow:hidden; position:relative;' >
+    <iframe src="3mesh_tiny.html" height="300px" scrolling="no" frameborder="0"></iframe>
+    </div>
+    <iframe src="3vol_tiny.html" height="300px" scrolling="no" frameborder="0"></iframe>
+    </p>
+  </div>
+
+</body>
+</html>
+
