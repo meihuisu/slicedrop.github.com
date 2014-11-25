@@ -48,6 +48,9 @@
 <link type='text/css' rel='stylesheet' href='css/viewer.css' />
 
 <script type='text/javascript' src='js/jquery.js'></script>
+<script>
+    $.holdReady(true);
+</script>
 <script type='text/javascript' src='js/jquery.ui.js'></script>
 <script type='text/javascript' src='js/jquery.ui.slider.js'></script>
 <script type='text/javascript' src='js/jquery.miniColors.js'></script>
@@ -79,6 +82,7 @@
 </head>
 <body id='body' class='webgl_enabled'>
   <!-- The viewer -->
+  <input name="bone" type="button" value="load"  onclick="this.style.visibility='hidden'; $.holdReady(false);" />
   <div id='viewer' style='display: none;'>
 
     <ul class='navigation'>
@@ -143,10 +147,82 @@
               <div id='opacity-labelmap'
                 style='margin-left: 10px; margin-top: 4px; float: left;'></div>
 
-
             </div>
           </div>
 
+        </div></li>
+
+      <li id='mesh' class='navigationLi'><div class='menu'>
+          <div class='pin'>
+            <span class='ui-icon ui-icon-pin-w pinicon'></span>
+          </div>
+          <div class='tabbox idTabs'>
+            <div class='caption'>MESH</div>
+
+            <a class='meshtabs selected'>Mesh 1</a>
+            <div id='mesh1' class='tabContent'>
+
+              <div id='visibility-mesh'
+                style='width: 140px; float: left; margin-top: 2px;'>
+                <div class='menuLabel' style='margin-top: 4px; float: left;'>Show/Hide</div>
+                <div id='meshvisibility' class='eye show-icon'
+                  style='margin-left: 6px;'></div>
+              </div>
+
+              <input type='hidden' id='meshColor' class='color-picker black'
+                size='6' value='#0000ff' />
+
+              <div class='menuLabel' style='margin-top: 4px; float: left;'>Opacity</div>
+              <div id='opacity-mesh'
+                style='margin-left: 10px; margin-top: 4px; float: left;'></div>
+
+              <div class='menuLabel'
+                style='margin-top: 4px; float: left; margin-top: 10px;'>Scalars</div>
+              <div id='scalars-mesh' style='width: 160px; float: left;'>
+
+                <select id='scalars-selector' style='margin-left: 6px'><option>Scalars
+                    1</option></select> <input type='hidden' class='color-picker black'
+                  id='scalarsMinColor' size='6' value='#00ff00' /> <input
+                  type='hidden' id='scalarsMaxColor' class='color-picker black'
+                  size='6' value='#ff0000' />
+              </div>
+
+              <div class='menuLabel' style='margin-top: 4px; float: left;'>Scalars
+                Threshold</div>
+              <div id='threshold-scalars'
+                style='margin-left: 10px; margin-top: 4px; float: left;'></div>
+
+            </div>
+
+          </div>
+        </div></li>
+
+      <li id='fibers' class='navigationLi'><div class='menu'>
+          <div class='pin'>
+            <span class='ui-icon ui-icon-pin-w pinicon'></span>
+          </div>
+          <div class='tabbox idTabs'>
+            <div class='caption'>FIBERS</div>
+
+            <a class='fiberstabs selected'>Fibers 1</a>
+
+            <div id='fibers1' class='tabContent'>
+
+              <div id='visibility-fibers'
+                style='width: 140px; float: left; margin-top: 2px;'>
+                <div class='menuLabel' style='margin-top: 4px; float: left;'>Show/Hide</div>
+                <div id='fibersvisibility' class='eye show-icon'
+                  style='margin-left: 6px;'></div>
+              </div>
+
+              <div class='menuLabel' style='margin-top: 4px; float: left;'>Fiber
+                Length Threshold</div>
+              <div id='threshold-fibers'
+                style='margin-left: 10px; margin-top: 4px; float: left;'></div>
+
+            </div>
+
+          </div>
         </div></li>
 
     </ul>
@@ -158,7 +234,7 @@
       <div id='blue_slider'></div>
     </div>
     <div id='sliceSag' class='twoDRenderer'>
-      <div id='red_slider' class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" aria-disabled="false"></div>
+      <div id='red_slider'></div>
     </div>
     <div id='sliceCor' class='twoDRenderer'>
       <div id='green_slider'></div>
