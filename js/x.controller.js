@@ -140,8 +140,8 @@ function setupUi() {
 
     var combobox = document.getElementById("scalars-selector");
 //MEI
-    if(combobox) {
-        combobox.disabled = true;
+    if(combobox) { 
+       combobox.disabled = true;
     }
     jQuery("#threshold-scalars").dragslider("option", "disabled", true);
 
@@ -172,14 +172,53 @@ function setupUi() {
 
 
   if (!_webgl_supported) {
+  }
 
+//MEI
+  // initialize_sharing();
 
+}
+
+/**
+ * Pre_Setup all UI elements for case when some files are not there
+ */
+function pre_setupUi() {
+  // VOLUME
+  if (_data.volume.file.length == 0) {
+    // no volume
+    jQuery('#volume .menu').addClass('menuDisabled');
+    jQuery("#blue_slider").slider("option", "disabled", true);
+    jQuery("#red_slider").slider("option", "disabled", true);
+    jQuery("#green_slider").slider("option", "disabled", true);
+  }
+
+  // LABELMAP
+  if (_data.labelmap.file.length == 0) {
+    // no labelmap
+    jQuery('#labelmapSwitch').hide();
+  }
+
+  // MESH
+  if (_data.mesh.file.length ==0) {
+    // no mesh
+    jQuery('#mesh .menu').addClass('menuDisabled');
+  }
+
+  // SCALARS
+  if (_data.scalars.file.length == 0) {
+    var combobox = document.getElementById("scalars-selector");
+    if(combobox) { 
+       combobox.disabled = true;
+    }
+    jQuery("#threshold-scalars").dragslider("option", "disabled", true);
 
   }
 
-  initialize_sharing();
-
-
+  // FIBERS
+  if (_data.fibers.file.length == 0) {
+    // no fibers
+    jQuery('#fibers .menu').addClass('menuDisabled');
+  }
 }
 
 function volumerenderingOnOff(bool) {

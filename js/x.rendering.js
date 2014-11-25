@@ -43,7 +43,6 @@ function initializeRenderers(){
 
   _webgl_supported = true;
 
-
   try {
 
     // create the XTK renderers
@@ -368,6 +367,9 @@ function read(files) {
    }
 
   }
+
+//MEI
+  pre_setupUi();
 
   // we now have the following data structure for the scene
   window.console.log('New data', _data);
