@@ -7,6 +7,7 @@ window.onload = function() {
 // create a X.volume
 var volume = new X.volume();
 volume.file = "http://localhost/data/tissue.nii"
+//volume.file = "https://cirm-dev.misd.isi.edu/data/tissue.nii"
 
 var _camera=r.camera;
 console.log("orig, camera position is.."+_camera.position);
