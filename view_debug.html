@@ -1,4 +1,5 @@
 <!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<meta charset="utf-8">
 <!-- 
 
 /*
@@ -30,10 +31,12 @@
      
 */
        
- -->
+-->
 <html>
 <head>
 <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+
+<meta name='viewport', content='width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0' />
 
 <link href='css/bootstrap.css' rel='stylesheet' />
 <link href='css/bootstrap-responsive.css' rel='stylesheet' />
@@ -44,6 +47,9 @@
 <link type='text/css' rel='stylesheet' href='css/viewer.css' />
 
 <script type='text/javascript' src='js/jquery.js'></script>
+<script>
+    $.holdReady(true);
+</script>
 <script type='text/javascript' src='js/jquery.ui.js'></script>
 <script type='text/javascript' src='js/jquery.ui.slider.js'></script>
 <script type='text/javascript' src='js/jquery.miniColors.js'></script>
@@ -62,19 +68,27 @@
 <script type='text/javascript' src='js/x.scene.js'></script>
 <script type='text/javascript' src='js/x.share.js'></script>
 <script type='text/javascript' src='js/x.realtime.js'></script>
-<script type='text/javascript' src='js/xtk.js'></script> 
+
+<script type="text/javascript" src="x-meihuisu/lib/google-closure-library/closure/goog/base.js"></script>
+<script type="text/javascript" src="x-meihuisu/xtk-deps.js"></script>
+<script type="text/javascript" src="js/default.js"></script>
 
 <script type="text/javascript"> 
 /*
    window.onload = function () {
-      selectfiles([{"name":"http://localhost/data/mAN261_Cor_60.nii", "size":0}]);
+      selectfiles([{"name":"http://localhost/data/test.nii", "size":0}]);
    }
 */
 </script> 
+<style>
+body { background-color: black; }
+</style>
+
 
 </head>
 <body id='body' class='webgl_enabled'>
   <!-- The viewer -->
+  <input name="bone" type="button" value="load"  onclick="this.style.visibility='hidden'; $.holdReady(false);" />
   <div id='viewer' style='display: none;'>
 
     <ul class='navigation'>
@@ -90,7 +104,6 @@
               href='#labelmapTab' id='labelmapSwitch'
               style='margin-left: 50px;'>Labelmap</a>
             <div id='volumeTab' class='tabContent'>
-
 
               <div id='modes' style='width: 130px; float: left;'>
                 <div id='volumerendering'>
@@ -140,7 +153,6 @@
               <div id='opacity-labelmap'
                 style='margin-left: 10px; margin-top: 4px; float: left;'></div>
 
-
             </div>
           </div>
 
@@ -181,8 +193,6 @@
                   size='6' value='#ff0000' />
               </div>
 
-
-
               <div class='menuLabel' style='margin-top: 4px; float: left;'>Scalars
                 Threshold</div>
               <div id='threshold-scalars'
@@ -216,15 +226,12 @@
               <div id='threshold-fibers'
                 style='margin-left: 10px; margin-top: 4px; float: left;'></div>
 
-
             </div>
 
           </div>
         </div></li>
 
     </ul>
-
-
 
     <!--  The renderers. -->
 
@@ -233,7 +240,7 @@
       <div id='blue_slider'></div>
     </div>
     <div id='sliceSag' class='twoDRenderer'>
-      <div id='red_slider' class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" aria-disabled="false"></div>
+      <div id='red_slider'></div>
     </div>
     <div id='sliceCor' class='twoDRenderer'>
       <div id='green_slider'></div>

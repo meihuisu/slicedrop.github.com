@@ -43,7 +43,6 @@ function initializeRenderers(){
 
   _webgl_supported = true;
 
-
   try {
 
     // create the XTK renderers
@@ -298,8 +297,9 @@ function createData() {
 /*MEI*/var remote_data_location = 'http://localhost/data/';
 
 // Reading files using the HTML5 FileReader.
-// if 'files' is a list of 'type File' or using xmlhttprequest 
-// or, if 'files' is an array list of {name:'file', size:0 }
+// if 'files' is a list of 'type File' 
+// or use xmlhttprequest 
+// if 'files' is an array list of {name:'file', size:0 }
 //
 function read(files) {
 
@@ -368,6 +368,9 @@ function read(files) {
    }
 
   }
+
+//MEI
+  pre_setupUi();
 
   // we now have the following data structure for the scene
   window.console.log('New data', _data);

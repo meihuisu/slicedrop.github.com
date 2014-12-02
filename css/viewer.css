@@ -111,7 +111,7 @@
 }
 
 .twoDRenderer {
-	border-left: thin solid #666;
+	border-left: thin solid #777;
 	background-color: #000;
 	position: absolute;
 }
@@ -198,6 +198,16 @@ Portrait mode for 2D renderers
 	display: none;
 }
 
+#blue_slider.ui-state-disabled  {
+        opacity: 0.1;
+}
+#red_slider.ui-state-disabled { 
+        opacity: 0.1;
+}
+#green_slider.ui-state-disabled {
+        opacity: 0.1;
+}
+
 #blue_slider {
 	margin-top: 2px;
 	background: #0064cd;
@@ -234,8 +244,8 @@ Portrait mode for 2D renderers
 	-o-transform: scaleX(-1);
 	-webkit-transform: scaleX(-1);
 	transform: scaleX(-1);
-	filter: FlipH;
-	-ms-filter: "FlipH";
+	filter: none;
+	-ms-filter: "none";
 }
 
 .left_annotation {
