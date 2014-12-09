@@ -136,6 +136,7 @@ function initializeRenderers(){
   ren3d.onShowtime = function() {
 
     window.console.log('Loading completed.');
+    window.console.time('ShowTime');
 
     if (_data.volume.file.length > 0) {
 
@@ -152,10 +153,10 @@ function initializeRenderers(){
 
     //ren3d.resetBoundingBox();
 
-    window.console.timeEnd('Loadtime');
-
     setupUi();
     configurator();
+
+    window.console.timeEnd('ShowTime');
 
   };
 
@@ -297,8 +298,9 @@ function createData() {
 /*MEI*/var remote_data_location = 'http://localhost/data/';
 
 // Reading files using the HTML5 FileReader.
-// if 'files' is a list of 'type File' or using xmlhttprequest 
-// or, if 'files' is an array list of {name:'file', size:0 }
+// if 'files' is a list of 'type File' 
+// or use xmlhttprequest 
+// if 'files' is an array list of {name:'file', size:0 }
 //
 function read(files) {
 
@@ -447,6 +449,7 @@ window.console.log('Using data url: ' + _file);
            }
 	   var http_request= new XMLHttpRequest();
            http_request.onreadystatechange = function() {
+window.console.log('readyState '+ this.readyState +' status '+this.status);
               if (this.readyState == 4 && this.status == 200) {
                   window.console.timeEnd('httpRequestTime');
                   var remote_data=http_request.response;
@@ -454,7 +457,9 @@ window.console.log('Using data url: ' + _file);
                   _numberRead++;
 window.console.log(" >>REMOTE<<, _data index is at ->" + _data[v]['file'].indexOf(u));
                   if (_numberRead == _numberOfFiles) {
+                  window.console.time('parseRemoteTime');
                       parse(_data);
+                  window.console.timeEnd('parseRemoteTime');
                   }
               }
            }
@@ -476,8 +481,6 @@ function parse(data) {
 
   // initialize renderers
   initializeRenderers();
-
-  window.console.time('Loadtime');
 
   // check for special case if a volume, a labelmap and a colortable was dropped
   if (data['volume']['file'].length == 2 && data['colortable']['file'].length == 1) {

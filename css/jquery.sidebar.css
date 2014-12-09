@@ -39,7 +39,7 @@
 	float: left;
 /* 	width: 50px; */
 	text-decoration: none;
-	color: #fff;
+	color: #fff; 
   -moz-border-radius: 2px 2px 0px 0px;
   -webkit-border-bottom-right-radius: 0px;
   -webkit-border-top-right-radius: 2px;
@@ -97,7 +97,6 @@
 	height: 150px;
 	background-color: #000;
 	opacity: 0.8;
-	filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80 );
 }
 
 .menuDisabled {

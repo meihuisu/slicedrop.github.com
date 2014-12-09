@@ -7,7 +7,8 @@ window.onload = function() {
 
 // create a X.mesh
  var mesh = new X.mesh();
- mesh.file = 'http://jacoby.isi.edu/data/ExtractedSurface.obj';
+mesh.file = 'http://localhost/data/ExtractedSurface.obj';
+//mesh.file = 'https://cirm-dev.misd.isi.edu/data/ExtractedSurface.obj';
 
 var _camera=r.camera;
 console.log("orig, camera position is.."+_camera.position);

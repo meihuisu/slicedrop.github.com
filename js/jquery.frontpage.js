@@ -33,9 +33,7 @@
  * http://imgscalr.com - THANKS!!
  */
 
-
 jQuery(document).ready(function() {
-
 
   detect_viewingmode();
 
@@ -66,7 +64,17 @@ jQuery(document).ready(function() {
       else
       {
           kvp = arg.split('=');
-          argsParsed[kvp[0].trim()] = kvp[1].replace(new RegExp('/$'),'').trim();
+          if(kvp[0].trim() == 'url') {
+// MEI, special handling
+              var _url=kvp[1].replace(new RegExp('/$'),'').trim();
+              if('url' in argsParsed ) {
+                argsParsed['url'].push({"name":_url, "size":0});
+              } else {  
+                argsParsed[kvp[0].trim()] = [{"name":_url, "size":0}];
+              }
+          } else {
+              argsParsed[kvp[0].trim()] = kvp[1].replace(new RegExp('/$'),'').trim();
+          }
       }
   }
 
@@ -80,7 +88,7 @@ jQuery(document).ready(function() {
 
 /* MEI, process for the camera position first */
   camera_x = ('camera_x' in argsParsed)? (argsParsed['camera_x']):0;
-  camera_y = ('camera_y' in argsParsed)? (argsParsed['camera_y']):-100;
+  camera_y = ('camera_y' in argsParsed)? (argsParsed['camera_y']):100;
   camera_z = ('camera_z' in argsParsed)? (argsParsed['camera_z']):0;
   console.log("user camera position->("+camera_x+","+camera_y+","+camera_z+")");
   ren3d_camera_position = [camera_x, camera_y, camera_z]; 
@@ -102,10 +110,10 @@ jQuery(document).ready(function() {
 
   } else if ('url' in argsParsed) {
 
-    console.log('Found url ' + argsParsed['url']);
+    console.log('Found urls ->' + argsParsed['url'].length);
 //MEI
-    var _url=argsParsed['url'];
-    selectfiles([{"name":_url, "size":0}]);
+    var url_list=argsParsed['url'];
+    selectfiles(url_list);
 
   } else {
 
