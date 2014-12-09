@@ -34,18 +34,17 @@ function loadFile(file) {
       file = file.slice(0, -1);
   }
 
-  var _file = 'http://x.babymri.org/?' + file;
+//  var _file = 'http://x.babymri.org/?' + file;
 //MEI
-  _file = 'http://localhost/data/' + file;
+  var _file = 'https://cirm-dev.misd.isi.edu/data/' + file;
 
   if (file.substring(0,4) == 'http') {
     // external url detected
-    console.log('Using external data url: ' + file);
+//MEI    window.console.log('Using external data url: ' + file);
     _file = file;
   }
 
-// MEI
-  console.log("in example loadFile url is -- "+_file);
+// MEI window.console.log("in example loadFile url is -- "+_file);
 
   // now switch to the viewer
   switchToViewer();
@@ -87,7 +86,7 @@ function loadFile(file) {
 
   }
 
-//MEI
+//MEI from jquery.frontpage.js
   ren3d.camera.position = ren3d_camera_position;
 
   ren3d.render();

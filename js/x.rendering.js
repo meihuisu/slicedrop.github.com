@@ -135,9 +135,6 @@ function initializeRenderers(){
 
   ren3d.onShowtime = function() {
 
-    window.console.log('Loading completed.');
-    window.console.time('ShowTime');
-
     if (_data.volume.file.length > 0) {
 
       // show any volume also in 2d
@@ -156,7 +153,7 @@ function initializeRenderers(){
     setupUi();
     configurator();
 
-    window.console.timeEnd('ShowTime');
+//MEI    window.console.timeEnd('ShowTime');
 
   };
 
@@ -294,8 +291,8 @@ function createData() {
 }
 
 /*MEI*/var remote=true;
-//MEI var remote_data_location = 'http://jacoby.isi.edu/data/';
-/*MEI*/var remote_data_location = 'http://localhost/data/';
+/*MEI*/ var remote_data_location = 'https://cirm-dev.misd.isi.edu/data/';
+// var remote_data_location = 'http://localhost/data/';
 
 // Reading files using the HTML5 FileReader.
 // if 'files' is a list of 'type File' 
@@ -373,15 +370,12 @@ function read(files) {
 //MEI
   pre_setupUi();
 
-  // we now have the following data structure for the scene
-  window.console.log('New data', _data);
-
   var _types = Object.keys(_data);
 
   // number of total files
   var _numberOfFiles = files.length;
   var _numberRead = 0;
-  window.console.log('Total new files:', _numberOfFiles);
+  //MEI window.console.log('Total new files:', _numberOfFiles);
 
   //
   // the HTML5 File Reader callbacks
@@ -442,30 +436,30 @@ function read(files) {
            var _file = remote_data_location + myfile;
            if (myfile.substring(0,4) == 'http') {
                // external url detected
-window.console.log(' >>REMOTE<<, Using external supplied data url: ' + myfile);
+//MEI window.console.log(' >>REMOTE<<, Using external supplied data url: ' + myfile);
               _file = myfile;
            } else {
-window.console.log('Using data url: ' + _file);
+//MEI window.console.log('Using data url: ' + _file);
            }
 	   var http_request= new XMLHttpRequest();
            http_request.onreadystatechange = function() {
-window.console.log('readyState '+ this.readyState +' status '+this.status);
+//MEI window.console.log('readyState '+ this.readyState +' status '+this.status);
               if (this.readyState == 4 && this.status == 200) {
-                  window.console.timeEnd('httpRequestTime');
+//MEI             window.console.timeEnd('httpRequestTime');
                   var remote_data=http_request.response;
                   _data[v]['filedata'][_data[v]['file'].indexOf(u)] = remote_data;
                   _numberRead++;
-window.console.log(" >>REMOTE<<, _data index is at ->" + _data[v]['file'].indexOf(u));
+//MEI window.console.log(" >>REMOTE<<, _data index is at ->" + _data[v]['file'].indexOf(u));
                   if (_numberRead == _numberOfFiles) {
-                  window.console.time('parseRemoteTime');
+//MEI                 window.console.time('parseRemoteTime');
                       parse(_data);
-                  window.console.timeEnd('parseRemoteTime');
+//MEI                 window.console.timeEnd('parseRemoteTime');
                   }
               }
            }
            http_request.open('GET', _file, true);
            http_request.responseType='arraybuffer';
-           window.console.time('httpRequestTime');
+//MEI      window.console.time('httpRequestTime');
            http_request.send(null);
       }
     });

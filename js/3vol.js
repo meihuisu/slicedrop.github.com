@@ -7,8 +7,8 @@ window.onload = function() {
 // create a X.volume
 var volume = new X.volume();
 //volume.file = "http://localhost/data/bone.nii"
-volume.file = "http://localhost/data/mAN261_Cor_60.nii"
-//volume.file = "https://cirm-dev.misd.isi.edu/data/tissue.nii"
+//volume.file = "http://localhost/data/mAN261_Cor_60.nii"
+volume.file = "https://cirm-dev.misd.isi.edu/data/tissue.nii"
 
 r.add(volume);
 
