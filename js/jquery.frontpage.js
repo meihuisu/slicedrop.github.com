@@ -87,11 +87,15 @@ jQuery(document).ready(function() {
   });
 
 /* MEI, process for the camera position first */
-  camera_x = ('camera_x' in argsParsed)? (argsParsed['camera_x']):0;
-  camera_y = ('camera_y' in argsParsed)? (argsParsed['camera_y']):100;
-  camera_z = ('camera_z' in argsParsed)? (argsParsed['camera_z']):0;
-//MEI  window.console.log("user camera position->("+camera_x+","+camera_y+","+camera_z+")");
-  ren3d_camera_position = [camera_x, camera_y, camera_z]; 
+  if( ('camera_x' in argsParsed) || ('camera_y' in argsParsed) ||
+             ('camera_z' in argsParsed) ) {
+    camera_x = ('camera_x' in argsParsed)? (argsParsed['camera_x']):0;
+    camera_y = ('camera_y' in argsParsed)? (argsParsed['camera_y']):100;
+    camera_z = ('camera_z' in argsParsed)? (argsParsed['camera_z']):0;
+    ren3d_camera_position = [camera_x, camera_y, camera_z]; 
+  } else {
+    ren3d_camera_position = null;
+  }
 
   if ('14yrold' in argsParsed) {
 

@@ -604,7 +604,9 @@ function parse(data) {
   }
 
 //MEI
-  ren3d.camera.position = ren3d_camera_position;
+  if(ren3d_camera_position != null) {
+    ren3d.camera.position = ren3d_camera_position;
+  }
 
   ren3d.render();
 
