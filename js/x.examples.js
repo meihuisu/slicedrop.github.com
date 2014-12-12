@@ -36,7 +36,7 @@ function loadFile(file) {
 
 //  var _file = 'http://x.babymri.org/?' + file;
 //MEI
-  var _file = 'https://cirm-dev.misd.isi.edu/data/' + file;
+  var _file = file;
 
   if (file.substring(0,4) == 'http') {
     // external url detected
