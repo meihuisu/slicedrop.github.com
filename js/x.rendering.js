@@ -451,7 +451,10 @@ function read(files) {
                   _numberRead++;
 //MEI window.console.log(" >>REMOTE<<, _data index is at ->" + _data[v]['file'].indexOf(u));
                   if (_numberRead == _numberOfFiles) {
+
 //MEI                 window.console.time('parseRemoteTime');
+                      var loadingDiv = document.getElementById('loading');
+                      loadingDiv.style.display = 'none';
                       parse(_data);
 //MEI                 window.console.timeEnd('parseRemoteTime');
                   }
