@@ -276,11 +276,20 @@ Portrait mode for 2D renderers
 	opacity: 0.7;
 }
 
+
+#loadbutton {
+  text-align: center;
+  left: 40%;
+  top: 45%;
+  position: fixed;
+  margin: auto;
+} 
+
 #loading {
   text-align: center;
   width: 20%;
   left: 30%;
-  top: 40%;
+  top: 45%;
   position: fixed;
   margin: auto;
   z-index: 999;

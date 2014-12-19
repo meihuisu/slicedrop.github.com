@@ -146,6 +146,19 @@ function initializeRenderers(){
        sliceSag.render();
        sliceCor.render();
 
+     //MEI  set camera position, [0, dim_y, 0]
+     //     if user did not specify
+
+/*
+       var RASDims = [volume.bbox[1] - volume.bbox[0] + 1, volume.bbox[3] - volume.bbox[2] + 1, volume.bbox[5] - volume.bbox[4] + 1];
+window.console.log("RASdimension is .."+RASDims);
+*/
+       var _dimensions=volume.dimensions;
+       if(ren3d_camera_position == null) {
+           ren3d.camera.position = [ 0, _dimensions[1], 0];
+           ren3d.render();
+       }
+
     }
 
     //ren3d.resetBoundingBox();
