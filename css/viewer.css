@@ -302,7 +302,7 @@ Portrait mode for 2D renderers
 
 #loading-label {
 position: absolute;
-top: 45%;
+top: 40%;
 }
 
 #loading-progress-bar {
@@ -332,6 +332,6 @@ background: red;
 
 #processing-label {
 position: absolute;
-top: 45%;
+top: 40%;
 }
 
