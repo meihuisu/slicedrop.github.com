@@ -291,12 +291,34 @@ Portrait mode for 2D renderers
   border-radius: 4px;
 } 
 
+
 #loading {
   text-align: center;
-  width: 20%;
-  left: 30%;
-  top: 45%;
-  position: fixed;
-  margin: auto;
-  z-index: 999;
+  font-size: 20px;
+  width: 100px;
+  margin-left: auto;
+  margin-right: auto;
+border: 2px solid orange;
 }
+
+#loading-label {
+position: absolute;
+top: 45%;
+}
+
+#loading-progress-bar {
+position: absolute;
+border: 1px solid #949dad;
+background-color: white;
+padding: 1px;
+overflow: hidden;
+top: 50%;
+margin: 2px;
+width: 100px;
+height: 5px;
+}
+
+#loading-progress-bar > .ui-progressbar-value {
+background: red;
+}
+

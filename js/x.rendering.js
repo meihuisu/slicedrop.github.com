@@ -455,6 +455,22 @@ function read(files) {
 //MEI window.console.log('Using data url: ' + _file);
            }
 	   var http_request= new XMLHttpRequest();
+           http_request.onprogress = function (evt) {
+               if(evt.lengthComputable) {
+                   var _loaded=evt.loaded;
+                   var _total=evt.total;
+                   var pComplete = (evt.loaded / evt.total)*100;
+                   if (pComplete > 90) {
+                       $('#loading-progress-bar').progressbar( {value:pComplete} );
+                       $('#loading-progress-bar > div').css('background','green'
+) ;
+                   } else {
+                       $('#loading-progress-bar').progressbar( {value:pComplete}
+ );
+                       $('#loading-progress-bar > div ').css('background','red') ;
+                   }
+               }
+           }
            http_request.onreadystatechange = function() {
 //MEI window.console.log('readyState '+ this.readyState +' status '+this.status);
               if (this.readyState == 4 && this.status == 200) {
