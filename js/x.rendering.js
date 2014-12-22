@@ -135,6 +135,9 @@ function initializeRenderers(){
 
   ren3d.onShowtime = function() {
 
+   
+    var processingDiv = document.getElementById('processing');
+    processingDiv.style.visibility = 'hidden';
     if (_data.volume.file.length > 0) {
 
       // show any volume also in 2d
@@ -484,6 +487,8 @@ function read(files) {
 //MEI                 window.console.time('parseRemoteTime');
                       var loadingDiv = document.getElementById('loading');
                       loadingDiv.style.display = 'none';
+                      var processingDiv = document.getElementById('processing');
+                      processingDiv.style.visibility = 'visible';
                       parse(_data);
 //MEI                 window.console.timeEnd('parseRemoteTime');
                   }
