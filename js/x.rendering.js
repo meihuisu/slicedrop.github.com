@@ -569,6 +569,8 @@ function parse(data) {
    // add callbacks for computing
    volume.onComputing = function(direction) {
      //console.log('computing', direction);
+    var processingDiv = document.getElementById('processing');
+    processingDiv.style.visibility = 'visible';
    }
 
    volume.onComputingProgress = function(value) {
@@ -577,6 +579,8 @@ function parse(data) {
 
    volume.onComputingEnd = function(direction) {
      //console.log('computing end', direction);
+    var processingDiv = document.getElementById('processing');
+    processingDiv.style.visibility = 'hidden';
    }
 
    if (data['colortable']['file'].length > 0) {
