@@ -465,8 +465,7 @@ function read(files) {
                    var pComplete = (evt.loaded / evt.total)*100;
                    if (pComplete > 90) {
                        $('#loading-progress-bar').progressbar( {value:pComplete} );
-                       $('#loading-progress-bar > div').css('background','green'
-) ;
+                       $('#loading-progress-bar > div').css('background','green') ;
                    } else {
                        $('#loading-progress-bar').progressbar( {value:pComplete}
  );
@@ -476,7 +475,8 @@ function read(files) {
            }
            http_request.onreadystatechange = function() {
 //MEI window.console.log('readyState '+ this.readyState +' status '+this.status);
-              if (this.readyState == 4 && this.status == 200) {
+              if (this.readyState == 4) {
+                if (this.status == 200) {
 //MEI             window.console.timeEnd('httpRequestTime');
                   var remote_data=http_request.response;
                   _data[v]['filedata'][_data[v]['file'].indexOf(u)] = remote_data;
@@ -492,6 +492,10 @@ function read(files) {
                       parse(_data);
 //MEI                 window.console.timeEnd('parseRemoteTime');
                   }
+                } else {
+//MEI, reset it
+                  $('#loading-progress-bar > div').css('background','red');
+                }
               }
            }
            http_request.open('GET', _file, true);
