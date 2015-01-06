@@ -135,7 +135,6 @@ function initializeRenderers(){
 
   ren3d.onShowtime = function() {
 
-   
     var processingDiv = document.getElementById('processing');
     processingDiv.style.visibility = 'hidden';
     if (_data.volume.file.length > 0) {
@@ -151,7 +150,6 @@ function initializeRenderers(){
 
      //MEI  set camera position, [0, _y, 0]
      //     if user did not specify
-
 /* the bounding box
        var RASDims = [volume.bbox[1] - volume.bbox[0] + 1, volume.bbox[3] - volume.bbox[2] + 1, volume.bbox[5] - volume.bbox[4] + 1];
 window.console.log("RASdimension is .."+RASDims);
@@ -160,6 +158,14 @@ window.console.log("RASdimension is .."+RASDims);
        if(ren3d_camera_position == null) {
            ren3d.camera.position = [ 0, _y, 0];
            ren3d.render();
+       }
+    } else {
+       // only mesh is there.. 
+       if (_data.mesh.file.length > 0) {
+           if(ren3d_camera_position != null) {
+               ren3d.camera.position = ren3d_camera_position;
+               ren3d.render();
+           }
        }
     }
 
