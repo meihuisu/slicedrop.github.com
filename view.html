@@ -85,7 +85,7 @@ body { background-color: black; }
 </head>
 <body id='body' class='webgl_enabled'>
   <!-- The viewer -->
-  <input name="bone" type="button" value="load"  onclick="this.style.visibility='hidden'; $.holdReady(false);" />
+  <input id="loadbtn" type="button" value="load"  onclick="this.style.visibility='hidden'; $.holdReady(false);" />
   <div id='viewer' style='display: none;'>
 
     <ul class='navigation'>
@@ -115,9 +115,9 @@ body { background-color: black; }
                 style='width: 26px; margin-left: 6px; float: left;'>
 
                 <input id='fgColorVolume' type='hidden'
-                  class='color-picker black' size='6' value='#ffffff' /> <input
-                  id='bgColorVolume' type='hidden' class='color-picker black'
-                  size='6' value='#000000' />
+                  class='color-picker black' size='6' value='#ffffff' /> 
+               <input id='bgColorVolume' type='hidden' 
+                  class='color-picker black' size='6' value='#000000' />
               </div>
 
               <div id='opacity-label' class='menuLabel'
@@ -232,7 +232,15 @@ body { background-color: black; }
 
     <!--  The renderers. -->
 
-    <div id='3d' class='threeDRenderer'></div>
+    <div id='3d' class='threeDRenderer'>
+      <div id='loading'>
+          <div id='loading-label'>Loading data</div>
+          <div id='loading-progress-bar'></div>
+      </div>
+      <div id='processing'>
+          <div id='processing-label'>Processing</div>
+      </div>
+    </div>
     <div id='sliceAx' class='twoDRenderer'>
       <div id='blue_slider'></div>
     </div>

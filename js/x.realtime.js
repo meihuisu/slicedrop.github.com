@@ -34,6 +34,8 @@ RT.link = function() {
 
     });
     RT._link.bind('client-camera-sync', function(data) {
+     // MEI
+     window.console.log("x.realtime.js, camera update..  "+ data.value);
 
       eval(data.target).camera.view = new Float32Array(data.value);
 
@@ -201,6 +203,8 @@ RT.link = function() {
 RT.pushCamera = function(renderer) {
 
   var _current_view = Array.apply([], eval(renderer).camera.view);
+// MEI
+  window.console.log("x.realtime.js, calling pushCamera");
 
   if ( !arraysEqual(_current_view, RT._old_view) ) {
 

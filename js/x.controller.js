@@ -360,7 +360,10 @@ function fgColorVolume(hex, rgb) {
     return;
   }
 
+
   volume.maxColor = [rgb.r / 255, rgb.g / 255, rgb.b / 255];
+//
+  window.console.log("calling fgColorVolume.."+volume.maxColor);
 
   if (RT.linked) {
 

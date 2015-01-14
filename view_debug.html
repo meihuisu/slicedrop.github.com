@@ -73,6 +73,7 @@
 <script type="text/javascript" src="x-latest/xtk-deps.js"></script>
 <script type="text/javascript" src="js/default.js"></script>
 
+
 <script type="text/javascript"> 
 /*
    window.onload = function () {
@@ -88,7 +89,7 @@ body { background-color: black; }
 </head>
 <body id='body' class='webgl_enabled'>
   <!-- The viewer -->
-  <input name="bone" type="button" value="load"  onclick="this.style.visibility='hidden'; $.holdReady(false);" />
+  <input id="loadbtn" type="button" value="load"  onclick="this.style.visibility='hidden'; $.holdReady(false);" />
   <div id='viewer' style='display: none;'>
 
     <ul class='navigation'>
@@ -235,7 +236,15 @@ body { background-color: black; }
 
     <!--  The renderers. -->
 
-    <div id='3d' class='threeDRenderer'></div>
+    <div id='3d' class='threeDRenderer'>
+      <div id='loading'>
+          <div id='loading-label'>Loading data</div>
+          <div id='loading-progress-bar'></div>
+      </div>
+      <div id='processing'>
+          <div id='processing-label'>Processing</div>
+      </div>
+    </div>
     <div id='sliceAx' class='twoDRenderer'>
       <div id='blue_slider'></div>
     </div>
