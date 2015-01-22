@@ -161,6 +161,14 @@ window.console.log("RASdimension is .."+RASDims);
            ren3d.camera.position = [ 0, _y, 0];
            ren3d.render();
        }
+    } else {
+         // only mesh is there.. 
+         if (_data.mesh.file.length > 0) {
+             if(ren3d_camera_position != null) {
+                 ren3d.camera.position = ren3d_camera_position;
+                 ren3d.render();
+             }
+         }
     }
 
     //ren3d.resetBoundingBox();
