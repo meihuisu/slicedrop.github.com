@@ -137,9 +137,6 @@ function initializeRenderers(){
 
     var processingDiv = document.getElementById('processing');
     processingDiv.style.visibility = 'hidden';
-    window.console.log('Loading completed.');
-    window.console.time('ShowTime');
-
     if (_data.volume.file.length > 0) {
 
       // show any volume also in 2d
@@ -151,26 +148,26 @@ function initializeRenderers(){
        sliceSag.render();
        sliceCor.render();
 
-     //MEI  set camera position, [0, 2*dim_y, 0]
+     //MEI  set camera position, [0, _y, 0]
      //     if user did not specify
 
+/* the bounding box
        var RASDims = [volume.bbox[1] - volume.bbox[0] + 1, volume.bbox[3] - volume.bbox[2] + 1, volume.bbox[5] - volume.bbox[4] + 1];
 window.console.log("RASdimension is .."+RASDims);
-
-       var _dimensions=volume.dimensions;
-window.console.log("dimension is .."+_dimensions);
+*/
        var _y=volume.bbox[3] - volume.bbox[2] + 1;
-
        if(ren3d_camera_position == null) {
-           window.console.log("RESET camera before.."+ren3d.camera.position);
            ren3d.camera.position = [ 0, _y, 0];
-           window.console.log("RESET camera after.."+ren3d.camera.position);
            ren3d.render();
        }
     } else {
-       /* if it is a mesh or other only */
-       ren3d.camera.position = [0,ren3d._maxY,0];
-       ren3d.render();
+         // only mesh is there.. 
+         if (_data.mesh.file.length > 0) {
+             if(ren3d_camera_position != null) {
+                 ren3d.camera.position = ren3d_camera_position;
+                 ren3d.render();
+             }
+         }
     }
 
     //ren3d.resetBoundingBox();
@@ -178,7 +175,7 @@ window.console.log("dimension is .."+_dimensions);
     setupUi();
     configurator();
 
-    window.console.timeEnd('ShowTime');
+//MEI    window.console.timeEnd('ShowTime');
 
   };
 
@@ -316,8 +313,8 @@ function createData() {
 }
 
 /*MEI*/var remote=true;
-//MEI var remote_data_location = 'http://jacoby.isi.edu/data/';
-/*MEI*/var remote_data_location = 'http://localhost/data/';
+/*MEI*/ var remote_data_location = 'https://cirm-dev.misd.isi.edu/data/';
+// var remote_data_location = 'http://localhost/data/';
 
 // Reading files using the HTML5 FileReader.
 // if 'files' is a list of 'type File' 
@@ -395,15 +392,12 @@ function read(files) {
 //MEI
   pre_setupUi();
 
-  // we now have the following data structure for the scene
-  window.console.log('New data', _data);
-
   var _types = Object.keys(_data);
 
   // number of total files
   var _numberOfFiles = files.length;
   var _numberRead = 0;
-  window.console.log('Total new files:', _numberOfFiles);
+  //MEI window.console.log('Total new files:', _numberOfFiles);
 
   //
   // the HTML5 File Reader callbacks
@@ -464,10 +458,10 @@ function read(files) {
            var _file = remote_data_location + myfile;
            if (myfile.substring(0,4) == 'http') {
                // external url detected
-window.console.log(' >>REMOTE<<, Using external supplied data url: ' + myfile);
+//MEI window.console.log(' >>REMOTE<<, Using external supplied data url: ' + myfile);
               _file = myfile;
            } else {
-window.console.log('Using data url: ' + _file);
+//MEI window.console.log('Using data url: ' + _file);
            }
 
 
@@ -477,43 +471,45 @@ window.console.log('Using data url: ' + _file);
                if(evt.lengthComputable) {
                    var _loaded=evt.loaded;
                    var _total=evt.total;
-                   var pComplete = (evt.loaded / evt.total)*100;  
+                   var pComplete = (evt.loaded / evt.total)*100;
                    if (pComplete > 90) {
                        $('#loading-progress-bar').progressbar( {value:pComplete} );
                        $('#loading-progress-bar > div').css('background','green') ;
                    } else {
-                       $('#loading-progress-bar').progressbar( {value:pComplete} );
-                       $('#loading-progress-bar > div').css('background','red') ;
+                       $('#loading-progress-bar').progressbar( {value:pComplete}
+ );
+                       $('#loading-progress-bar > div ').css('background','red') ;
                    }
                }
            }
            http_request.onreadystatechange = function() {
-window.console.log('readyState '+ this.readyState +' status '+this.status);
-              if (this.readyState == 4 ) {
-                if(this.status == 200) {
-                  window.console.timeEnd('httpRequestTime');
+//MEI window.console.log('readyState '+ this.readyState +' status '+this.status);
+              if (this.readyState == 4) {
+                if (this.status == 200) {
+//MEI             window.console.timeEnd('httpRequestTime');
                   var remote_data=http_request.response;
                   _data[v]['filedata'][_data[v]['file'].indexOf(u)] = remote_data;
-                  if(remote_data) { _numberRead++; }
-window.console.log(" >>REMOTE<<, _data index is at ->" + _data[v]['file'].indexOf(u));
+                  _numberRead++;
+//MEI window.console.log(" >>REMOTE<<, _data index is at ->" + _data[v]['file'].indexOf(u));
                   if (_numberRead == _numberOfFiles) {
+
+//MEI                 window.console.time('parseRemoteTime');
                       var loadingDiv = document.getElementById('loading');
                       loadingDiv.style.display = 'none';
                       var processingDiv = document.getElementById('processing');
                       processingDiv.style.visibility = 'visible';
-                 window.console.time('parseRemoteTime');
                       parse(_data);
-                 window.console.timeEnd('parseRemoteTime');
-                 }
+//MEI                 window.console.timeEnd('parseRemoteTime');
+                  }
                 } else {
-window.console.log("something is wrong with the access..");
-                  $('#loading-progress-bar > div').css('background','red') ;
+//MEI, reset it
+                  $('#loading-progress-bar > div').css('background','red');
                 }
-             }
+              }
            }
            http_request.open('GET', _file, true);
            http_request.responseType='arraybuffer';
-           window.console.time('httpRequestTime');
+//MEI      window.console.time('httpRequestTime');
            http_request.send(null);
       }
     });

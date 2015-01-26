@@ -88,11 +88,9 @@ jQuery(document).ready(function() {
 /* MEI, process for the camera position first */
   if( ('camera_x' in argsParsed) || ('camera_y' in argsParsed) ||
              ('camera_z' in argsParsed) ) {
-
     camera_x = ('camera_x' in argsParsed)? (argsParsed['camera_x']):0;
     camera_y = ('camera_y' in argsParsed)? (argsParsed['camera_y']):100;
     camera_z = ('camera_z' in argsParsed)? (argsParsed['camera_z']):0;
-    console.log("user camera position->("+camera_x+","+camera_y+","+camera_z+")");
     ren3d_camera_position = [camera_x, camera_y, camera_z]; 
   } else {
     ren3d_camera_position = null;
@@ -115,7 +113,7 @@ jQuery(document).ready(function() {
 
   } else if ('url' in argsParsed) {
 
-    console.log('Found urls ->' + argsParsed['url'].length);
+//MEI    window.console.log('Found urls ->' + argsParsed['url'].length);
 //MEI
     var url_list=argsParsed['url'];
     selectfiles(url_list);
@@ -127,7 +125,7 @@ jQuery(document).ready(function() {
     if (_url.length > 1) {
 //MEI
       _url=document.location.search.substring(1);
-      console.log('Found plain args..'+_url);
+//MEI window.console.log('Found plain args..'+_url);
       loadFile(_url);
     }
     //}
@@ -140,10 +138,8 @@ jQuery(document).ready(function() {
     var _height = jQuery(id).height();
 
     // now convert to percentage
-    console.log('old', _width, _height);
     _width = jQuery(id).width() / jQuery(document).width() * 100;
     _height = jQuery(id).height() / jQuery(document).height() * 100;
-    console.log('new', _width, _height);
     jQuery(id).height(_width + '%');
     jQuery(id).width(_height + '%');
     jQuery(id).css('position', 'absolute');

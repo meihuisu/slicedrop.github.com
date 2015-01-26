@@ -277,11 +277,6 @@ Portrait mode for 2D renderers
 }
 
 
-.threeDRenderer {
-border: 2px solid green;
-}
-
-
 #loadbtn {
   text-align: center;
   left: 40%;

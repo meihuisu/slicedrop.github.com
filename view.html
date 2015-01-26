@@ -71,11 +71,7 @@
 <script type="text/javascript" src="js/xtk.js"></script>
 
 <script type="text/javascript"> 
-/*
-   window.onload = function () {
-      selectfiles([{"name":"http://localhost/data/test.nii", "size":0}]);
-   }
-*/
+   window.onload = function () { $.holdReady(false); }
 </script> 
 <style>
 body { background-color: black; }
@@ -85,7 +81,6 @@ body { background-color: black; }
 </head>
 <body id='body' class='webgl_enabled'>
   <!-- The viewer -->
-  <input id="loadbtn" type="button" value="load"  onclick="this.style.visibility='hidden'; $.holdReady(false);" />
   <div id='viewer' style='display: none;'>
 
     <ul class='navigation'>
