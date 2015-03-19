@@ -1,7 +1,6 @@
 <!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
 <meta charset="utf-8">
 <!-- 
-
 /*
 
     .----.                    _..._                                                     .-'''-.                           
@@ -57,6 +56,7 @@
 <script type='text/javascript' src='js/jquery.idTabs.js'></script>
 <script type='text/javascript' src='js/jquery.sidebar.js'></script>
 <script type='text/javascript' src='js/jquery.sidebar.volume.js'></script>
+<script type='text/javascript' src='js/jquery.sidebar.channel.js'></script>
 <script type='text/javascript' src='js/jquery.sidebar.mesh.js'></script>
 <script type='text/javascript' src='js/jquery.sidebar.fibers.js'></script>
 <script type='text/javascript' src='js/jquery.viewer.js'></script>
@@ -69,6 +69,7 @@
 <script type='text/javascript' src='js/x.share.js'></script>
 <script type='text/javascript' src='js/x.realtime.js'></script>
 <script type="text/javascript" src="js/xtk.js"></script>
+
 
 <script type="text/javascript"> 
 /*
@@ -97,8 +98,8 @@ body { background-color: black; }
           <div class='tabbox idTabs' id='volumetabs'>
             <div class='caption'>VOLUME</div>
 
-            <a href='#volumeTab' class='selected'>Volume</a> <a
-              href='#labelmapTab' id='labelmapSwitch'
+            <a href='#volumeTab' class='selected'>Volume</a> 
+            <a href='#labelmapTab' id='labelmapSwitch'
               style='margin-left: 50px;'>Labelmap</a>
             <div id='volumeTab' class='tabContent'>
 
@@ -134,7 +135,6 @@ body { background-color: black; }
               <div id='threshold-volume'
                 style='margin-left: 10px; margin-top: 4px; float: left;'></div>
 
-
             </div>
             <div id='labelmapTab' class='tabContent' style='display: none'>
 
@@ -154,6 +154,33 @@ body { background-color: black; }
           </div>
 
         </div></li>
+
+      <li id='channel' class='navigationLi'> <div class='menu'>
+          <div class='pin'>
+            <span class='ui-icon ui-icon-pin-w pinicon'></span>
+          </div>
+          <div class='tabbox idTabs' id='channeltabs'>
+            <div class='caption'>CHANNEL</div>
+            <a href='#channelTab' class='selected' >Channel</a>
+
+            <div id='channelTab' class='tabContent'>
+              <div id='channels' style='width: 130px; float: left;'>
+                <div id='redChannel'>
+                  <img src='gfx/red.png' />
+                </div>
+                <div id='greenChannel'>
+                  <img src='gfx/green.png' />
+                </div>
+                <div id='blueChannel'>
+                  <img src='gfx/blue.png' />
+                </div>
+                <div id='comboChannel'>
+                  <img src='gfx/combo.png'/>
+                </div>
+              </div>
+           </div>
+         </div>
+      </div></li>
 
       <li id='mesh' class='navigationLi'><div class='menu'>
           <div class='pin'>

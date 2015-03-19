@@ -45,9 +45,9 @@ function setupUi() {
     jQuery('#windowlevel-volume').dragslider("option", "max", volume.max);
     jQuery('#windowlevel-volume').dragslider("option", "min", volume.min);
     jQuery('#windowlevel-volume').dragslider("option", "values",
-        [volume.min, volume.max/2]);
+        [volume.min, volume.max]);
 
-    volume.windowHigh = volume.max/2;
+    volume.windowHigh = volume.max;
 
     // update 3d opacity
     jQuery('#opacity-volume').slider("option", "value", 20);
@@ -86,6 +86,13 @@ function setupUi() {
     jQuery("#red_slider").slider("option", "disabled", true);
     jQuery("#green_slider").slider("option", "disabled", true);
 
+  }
+
+  // CHANNEL
+  if (_data.volume.file.length > 0 && _channels ) {
+  // has rgb channels
+  } else {
+    jQuery('#channel .menu').addClass('menuDisabled');
   }
 
   // LABELMAP
@@ -177,6 +184,29 @@ function setupUi() {
 //MEI
   // initialize_sharing();
 
+}
+
+/**
+ * Reset UI elements if volume data got changed
+ */
+function resetUi() {
+
+  // VOLUME
+  if (_data.volume.file.length > 0) {
+
+    // update threshold slider
+    jQuery('#threshold-volume').dragslider("option", "max", volume.max);
+    jQuery('#threshold-volume').dragslider("option", "min", volume.min);
+    jQuery('#threshold-volume').dragslider("option", "values",
+        [volume.min, volume.max]);
+
+    // update window/level slider
+    jQuery('#windowlevel-volume').dragslider("option", "max", volume.max);
+    jQuery('#windowlevel-volume').dragslider("option", "min", volume.min);
+    jQuery('#windowlevel-volume').dragslider("option", "values",
+        [volume.min, volume.max]);
+    volume.windowHigh = volume.max;
+  }
 }
 
 /**
@@ -308,6 +338,8 @@ function volumeslicingSag(event, ui) {
     return;
   }
 
+  var cache=volume._volumeRenderingCache;
+
   volume.indexX = Math
       .floor(jQuery('#red_slider').slider("option", "value"));
 
@@ -360,7 +392,10 @@ function fgColorVolume(hex, rgb) {
     return;
   }
 
+
   volume.maxColor = [rgb.r / 255, rgb.g / 255, rgb.b / 255];
+//
+  window.console.log("calling fgColorVolume.."+volume.maxColor);
 
   if (RT.linked) {
 
@@ -387,6 +422,56 @@ function bgColorVolume(hex, rgb) {
   }
 
 }
+
+//
+// CHANNEL
+//
+
+function changeChannel(channel,color) {
+
+  if (!volume) {
+    return;
+  }
+
+  var _volume=volume;
+
+  var _indexX=volume.indexX;
+  var _indexY=volume.indexY;
+  var _indexZ=volume.indexZ;
+  var _indexXold=volume._indexXold;
+  var _indexYold=volume._indexYold;
+  var _indexZold=volume._indexZold;
+
+  X.parserTIFF.prototype.resetChannel(volume, channel);
+  volume.maxColor=color;
+
+  volume.sliceInfoChanged(0);
+  volume.sliceInfoChanged(1);
+  volume.sliceInfoChanged(2);
+
+  volume.indexX=_indexX;
+  volume.indexY=_indexY;
+  volume.indexZ=_indexZ;
+  volume.indexXold=_indexXold;
+  volume.indexYold=_indexYold;
+  volume.indexZold=_indexZold;
+
+  volume.modified();
+  resetUi();
+  // need to abandon old one since volume data got updated
+  volume._volumeRenderingCache = []
+
+  sliceAx.update(volume);
+  sliceSag.update(volume);
+  sliceCor.update(volume);
+
+  if (RT.linked) {
+    clearTimeout(RT._updater);
+    RT._updater = setTimeout(RT.pushChannel.bind(RT, 'maxColor', volume.maxColor), 150);
+  }
+
+}
+
 
 //
 // LABELMAP

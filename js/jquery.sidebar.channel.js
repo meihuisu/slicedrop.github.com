@@ -27,87 +27,50 @@
      
 */
 
-// sidebar javascript
+// channel panel javascript
 jQuery(function() {
 
-  jQuery('.menu').stop().animate({
-    'marginLeft': '-195px'
-  }, 1000);
-  
-  jQuery('.navigationLi').hover(function() {
+  jQuery('#comboChannel').button();
+  jQuery('#comboChannel').unbind('mouseenter').unbind('mouseleave');
+  jQuery('#comboChannel').addClass('ui-state-active');
+  jQuery('#comboChannel').click(function() {
+    jQuery('#greenChannel').removeClass('ui-state-active');
+    jQuery('#blueChannel').removeClass('ui-state-active');
+    jQuery('#redChannel').removeClass('ui-state-active');
+    jQuery('#comboChannel').addClass('ui-state-active');
+    changeChannel(0,[1,1,1]);
+  });
 
-    if (jQuery('.menu', jQuery(this)).hasClass('menuDisabled')) {
-      // if this menu is disabled, don't slide
-      return;
-    }
-    
-    if (jQuery('.miniColors-selector').length > 0) {
-      
-      // color dialog is active, don't slide
-      return;
-      
-    }
-    
-    jQuery('.menu', jQuery(this)).stop().animate({
-      'marginLeft': '-2px'
-    }, 200);
-    
-  }, function() {
-
-    if (jQuery('.pinicon', jQuery(this)).hasClass('ui-icon-pin-s')) {
-      // if pinned, don't slide in
-      return;
-    }
-    
-    if (jQuery('.miniColors-selector').length > 0) {
-      
-      // color dialog is active, don't slide
-      return;
-      
-    }
-    
-    jQuery('.menu', jQuery(this)).stop().animate({
-      'marginLeft': '-195px'
-    }, 200);
-    
+  jQuery('#redChannel').button();
+  jQuery('#redChannel').unbind('mouseenter').unbind('mouseleave');
+  jQuery('#redChannel').click(function() {
+    jQuery('#greenChannel').removeClass('ui-state-active');
+    jQuery('#blueChannel').removeClass('ui-state-active');
+    jQuery('#comboChannel').removeClass('ui-state-active');
+    jQuery('#redChannel').addClass('ui-state-active');
+    changeChannel(0,[1,0,0]);
   });
   
-  jQuery('.pin').click(
-      function() {
-
-        jQuery('.pinicon', jQuery(this)).toggleClass('ui-icon-pin-w')
-            .toggleClass('ui-icon-pin-s');
-        
-      });
-  
-
-  // activate the tab boxes
-  // .. for volumes
-  jQuery("#volumetabs").idTabs("!mouseover");
-  // .. for channels
-  jQuery(".channeltabs").bind('mouseenter', function() {
-    jQuery('.channeltabs').removeClass('selected');
-    jQuery(this).addClass("selected");
-    
-  });
-  // .. for meshes
-  jQuery(".meshtabs").bind('mouseenter', function() {
-    jQuery('.meshtabs').removeClass('selected');
-    jQuery(this).addClass("selected");
-  });
-  // .. for fibers
-  jQuery(".fiberstabs").bind('mouseenter', function() {
-    jQuery('.fiberstabs').removeClass('selected');
-    jQuery(this).addClass("selected");
+  jQuery('#greenChannel').button();
+  jQuery('#greenChannel').unbind('mouseenter').unbind('mouseleave');
+  jQuery('#greenChannel').click(function() {
+    jQuery('#redChannel').removeClass('ui-state-active');
+    jQuery('#blueChannel').removeClass('ui-state-active');
+    jQuery('#comboChannel').removeClass('ui-state-active');
+    jQuery('#greenChannel').addClass('ui-state-active');
+    changeChannel(1,[0,1,0]);
   });
   
-  // a show/hide button
-  jQuery('.eye').button();
-  jQuery('.eye').unbind('mouseenter').unbind('mouseleave');
-  jQuery('.eye').click(function() {
-
-    jQuery('.eye').toggleClass('show-icon').toggleClass('hide-icon');
-    
+  jQuery('#blueChannel').button();
+  jQuery('#blueChannel').unbind('mouseenter').unbind('mouseleave');
+  jQuery('#blueChannel').click(function() {
+    jQuery('#redChannel').removeClass('ui-state-active');
+    jQuery('#greenChannel').removeClass('ui-state-active');
+    jQuery('#comboChannel').removeClass('ui-state-active');
+    jQuery('#blueChannel').addClass('ui-state-active');
+    changeChannel(2,[0,0,1]);
   });
+
+  jQuery('#channels').buttonset();
   
 });
