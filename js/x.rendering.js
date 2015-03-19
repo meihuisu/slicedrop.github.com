@@ -312,7 +312,7 @@ function createData() {
 
 }
 
-/*MEI*/var _channels=true;
+/*MEI*/var _channels=false;
 
 /*MEI*/var remote=true;
 /*MEI*/ var remote_data_location = 'https://cirm-dev.misd.isi.edu/data/';
@@ -366,6 +366,10 @@ function read(files) {
 
      _data['volume']['file'].push(f);
 
+// SPECIAL CASE: MEI, need to grab this from meta data in the future
+     if(_fileExtension == "TIF" || _fileExtension == "TIFF") {
+         _channels=true;
+     }
 
    } else if (_data['colortable']['extensions'].indexOf(_fileExtension) >= 0) {
 

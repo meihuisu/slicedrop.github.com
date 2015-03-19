@@ -59,7 +59,9 @@ jQuery(function() {
     jQuery('#opacity-volume').hide();
     jQuery('#windowlevel-label').show();
     jQuery('#windowlevel-volume').show();
-    jQuery('#channel .menu').removeClass('menuDisabled');
+    if(_channels) {
+      jQuery('#channel .menu').removeClass('menuDisabled');
+    }
     
     volumerenderingOnOff(false);
     

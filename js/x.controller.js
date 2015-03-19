@@ -91,8 +91,7 @@ function setupUi() {
   // CHANNEL
   if (_data.volume.file.length > 0 && _channels ) {
   // has rgb channels
-  } else {
-    jQuery('#channel .menu').addClass('menuDisabled');
+    jQuery('#channel .menu').removeClass('menuDisabled');
   }
 
   // LABELMAP
@@ -226,6 +225,11 @@ function pre_setupUi() {
   if (_data.labelmap.file.length == 0) {
     // no labelmap
     jQuery('#labelmapSwitch').hide();
+  }
+
+  // CHANNEL 
+  if ( !_channels ) { // has no channels
+    jQuery('#channel .menu').addClass('menuDisabled');
   }
 
   // MESH
