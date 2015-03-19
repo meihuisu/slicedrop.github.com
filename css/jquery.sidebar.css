@@ -64,7 +64,7 @@
 .tabContent {
 	display: block;
 	width: 178px;
-	height: 134px;
+	height: 134px; 
 	margin-top: 16px;
 	padding: 10px;
 	border: 1px solid #AFAFAF;
@@ -74,6 +74,7 @@
   -khtml-border-bottom-right-radius: 2px;
   -khtml-border-top-right-radius: 2px;	
 }
+
 
 .navigation {
 	position: fixed;
@@ -140,6 +141,10 @@
 }
 
 .meshtabs {
+	cursor:pointer;
+}
+
+.channeltabs {
 	cursor:pointer;
 }
 

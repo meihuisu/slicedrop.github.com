@@ -150,6 +150,7 @@ function initializeRenderers(){
 
      //MEI  set camera position, [0, _y, 0]
      //     if user did not specify
+
 /* the bounding box
        var RASDims = [volume.bbox[1] - volume.bbox[0] + 1, volume.bbox[3] - volume.bbox[2] + 1, volume.bbox[5] - volume.bbox[4] + 1];
 window.console.log("RASdimension is .."+RASDims);
@@ -160,13 +161,13 @@ window.console.log("RASdimension is .."+RASDims);
            ren3d.render();
        }
     } else {
-       // only mesh is there.. 
-       if (_data.mesh.file.length > 0) {
-           if(ren3d_camera_position != null) {
-               ren3d.camera.position = ren3d_camera_position;
-               ren3d.render();
-           }
-       }
+         // only mesh is there.. 
+         if (_data.mesh.file.length > 0) {
+             if(ren3d_camera_position != null) {
+                 ren3d.camera.position = ren3d_camera_position;
+                 ren3d.render();
+             }
+         }
     }
 
     //ren3d.resetBoundingBox();
@@ -279,7 +280,7 @@ function createData() {
    'volume': {
      'file': [],
      'filedata': [],
-     'extensions': ['NRRD', 'MGZ', 'MGH', 'NII', 'GZ', 'DCM', 'DICOM']
+     'extensions': ['NRRD', 'MGZ', 'MGH', 'NII', 'TIF', 'TIFF', 'GZ', 'DCM', 'DICOM']
    },
    'labelmap': {
      'file': [],
@@ -310,6 +311,8 @@ function createData() {
   };
 
 }
+
+/*MEI*/var _channels=true;
 
 /*MEI*/var remote=true;
 /*MEI*/ var remote_data_location = 'https://cirm-dev.misd.isi.edu/data/';
@@ -462,6 +465,9 @@ function read(files) {
            } else {
 //MEI window.console.log('Using data url: ' + _file);
            }
+
+
+
 	   var http_request= new XMLHttpRequest();
            http_request.onprogress = function (evt) {
                if(evt.lengthComputable) {
@@ -577,16 +583,19 @@ function parse(data) {
 
    // add callbacks for computing
    volume.onComputing = function(direction) {
+window.console.log("---> onComputing.."+direction);
      //console.log('computing', direction);
     var processingDiv = document.getElementById('processing');
     processingDiv.style.visibility = 'visible';
    }
 
    volume.onComputingProgress = function(value) {
+window.console.log("---> onComputingProgress.."+value);
      //console.log(value);
    }
 
    volume.onComputingEnd = function(direction) {
+window.console.log("---> onComputingEnd.."+direction);
      //console.log('computing end', direction);
     var processingDiv = document.getElementById('processing');
     processingDiv.style.visibility = 'hidden';
