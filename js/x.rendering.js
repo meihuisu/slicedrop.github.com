@@ -139,6 +139,8 @@ function initializeRenderers(){
     processingDiv.style.visibility = 'hidden';
     if (_data.volume.file.length > 0) {
 
+       if(_tiff) setupChannels(volume);
+
       // show any volume also in 2d
        sliceAx.add(volume);
        sliceSag.add(volume);
@@ -312,7 +314,21 @@ function createData() {
 
 }
 
-/*MEI*/var _channels=false;
+/* MEI, this is for managing TIF multi-channels volume data, this
+   is assuming that there is just 1 volume */
+var _tiff=false;
+var _channels=0;
+var _rgb=false;
+function setupChannels(v) {
+    if(!_tiff) return;
+    _channels=X.parserTIFF.prototype.isTiffMultiChannel(v);
+    if(_channels == 3) { 
+      _rgb=X.parserTIFF.prototype.isTiffRGB(v);
+    }
+}   
+function hasChannels() { return _channels; } 
+function setTIFF() { _tiff=true; }
+function hasRGB() { return _rgb; }
 
 /*MEI*/var remote=true;
 /*MEI*/ var remote_data_location = 'https://cirm-dev.misd.isi.edu/data/';
@@ -359,16 +375,15 @@ function read(files) {
 
    }
 
-   var _fileSize = f.size;
-
    // check which type of file it is
    if (_data['volume']['extensions'].indexOf(_fileExtension) >= 0) {
 
      _data['volume']['file'].push(f);
 
 // SPECIAL CASE: MEI, need to grab this from meta data in the future
-     if(_fileExtension == "TIF" || _fileExtension == "TIFF") {
-         _channels=true;
+     if(_fileExtension === "TIF" || _fileExtension === "TIFF") {
+// grab this from somewhere..  window.console.log("found TIF file");
+         setTIFF();
      }
 
    } else if (_data['colortable']['extensions'].indexOf(_fileExtension) >= 0) {
@@ -494,7 +509,10 @@ function read(files) {
                 if (this.status == 200) {
 //MEI             window.console.timeEnd('httpRequestTime');
                   var remote_data=http_request.response;
+                  var len=remote_data.byteLength;
                   _data[v]['filedata'][_data[v]['file'].indexOf(u)] = remote_data;
+                  _data[v]['file'][_data[v]['file'].indexOf(u)].size = len;
+
                   _numberRead++;
 //MEI window.console.log(" >>REMOTE<<, _data index is at ->" + _data[v]['file'].indexOf(u));
                   if (_numberRead == _numberOfFiles) {
@@ -547,7 +565,6 @@ function parse(data) {
       data['volume']['filedata'].shift();
 
     } else {
-
       // we swap them and configure the second one as a labelmap
       _smaller_volume = data['volume']['file'][1];
       _smaller_data = data['volume']['filedata'][1];

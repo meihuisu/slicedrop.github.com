@@ -89,9 +89,30 @@ function setupUi() {
   }
 
   // CHANNEL
-  if (_data.volume.file.length > 0 && _channels ) {
+  if (_data.volume.file.length > 0 && hasChannels()>1 ) {
   // has rgb channels
+    if(hasRGB()) {
+      jQuery('#greenChannel').show();
+      jQuery('#blueChannel').show();
+      jQuery('#redChannel').show();
+      jQuery("#channellevel-slide").slider("option", "disabled", true);
+      jQuery('#channellevel-label').hide();
+      jQuery('#channellevel-slide').hide();
+      jQuery('#channellevel-btn').hide();
+      } else {
+        jQuery('#greenChannel').hide();
+        jQuery('#blueChannel').hide();
+        jQuery('#redChannel').hide();
+        jQuery('#channellevel-label').show();
+        jQuery('#channellevel-slide').show();
+        jQuery('#channellevel-btn').show();
+        jQuery('#channellevel-slide').slider("option", "disabled", false);
+    }
+
     jQuery('#channel .menu').removeClass('menuDisabled');
+
+  } else {
+    jQuery('#channel .menu').addClass('menuDisabled');
   }
 
   // LABELMAP
@@ -213,23 +234,19 @@ function resetUi() {
  */
 function pre_setupUi() {
   // VOLUME
-  if (_data.volume.file.length == 0) {
-    // no volume
-    jQuery('#volume .menu').addClass('menuDisabled');
-    jQuery("#blue_slider").slider("option", "disabled", true);
-    jQuery("#red_slider").slider("option", "disabled", true);
-    jQuery("#green_slider").slider("option", "disabled", true);
+  // no volume to start with
+  jQuery('#volume .menu').addClass('menuDisabled');
+
+  // CHANNEL
+  if (_data.volume.file.length > 0 && hasChannels()< 2) {
+     // no channel
+     jQuery('#channel .menu').addClass('menuDisabled');
   }
 
   // LABELMAP
   if (_data.labelmap.file.length == 0) {
     // no labelmap
     jQuery('#labelmapSwitch').hide();
-  }
-
-  // CHANNEL 
-  if ( !_channels ) { // has no channels
-    jQuery('#channel .menu').addClass('menuDisabled');
   }
 
   // MESH
@@ -268,7 +285,6 @@ function volumerenderingOnOff(bool) {
   volume.volumeRendering = bool;
 
   if (RT.linked) {
-
     clearTimeout(RT._updater);
     RT._updater = setTimeout(RT.pushVolume.bind(RT, 'volumeRendering', volume.volumeRendering), 150);
   }
@@ -342,8 +358,7 @@ function volumeslicingSag(event, ui) {
     return;
   }
 
-  var cache=volume._volumeRenderingCache;
-
+//???MEI  var cache=volume._volumeRenderingCache;
   volume.indexX = Math
       .floor(jQuery('#red_slider').slider("option", "value"));
 
@@ -398,8 +413,6 @@ function fgColorVolume(hex, rgb) {
 
 
   volume.maxColor = [rgb.r / 255, rgb.g / 255, rgb.b / 255];
-//
-  window.console.log("calling fgColorVolume.."+volume.maxColor);
 
   if (RT.linked) {
 
@@ -437,7 +450,8 @@ function changeChannel(channel,color) {
     return;
   }
 
-  var _volume=volume;
+  // need to abandon old one since volume data got updated
+  volume.volumeRenderingCache = [];
 
   var _indexX=volume.indexX;
   var _indexY=volume.indexY;
@@ -460,22 +474,44 @@ function changeChannel(channel,color) {
   volume.indexYold=_indexYold;
   volume.indexZold=_indexZold;
 
-  volume.modified();
   resetUi();
-  // need to abandon old one since volume data got updated
-  volume._volumeRenderingCache = []
+  volume.modified();
 
   sliceAx.update(volume);
   sliceSag.update(volume);
   sliceCor.update(volume);
+}
 
-  if (RT.linked) {
-    clearTimeout(RT._updater);
-    RT._updater = setTimeout(RT.pushChannel.bind(RT, 'maxColor', volume.maxColor), 150);
+function updateChannel(channel,color) {
+
+  if (!volume) {
+    return;
   }
+  changeChannel(channel,color);
 
 }
 
+function channelLevelValue(event, ui) {
+
+   if (!volume) {
+     return;
+   }
+
+  // ui.value range form 0-100,
+   var _t = hasChannels();
+
+   var _value = Math.round(1+(_t-1) * ((ui.value) / 100));
+
+   var _w=jQuery('#channellevel-btn').attr('value');
+   var _s=_value.toString();
+
+   if(_w == _s) {
+     //window.console.log(" no change..");
+     } else {
+         var btn=document.getElementById("channellevel-btn");
+         btn.value=_s;
+   }
+}
 
 //
 // LABELMAP

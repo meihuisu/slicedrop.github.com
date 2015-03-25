@@ -43,8 +43,15 @@ jQuery(function() {
     jQuery('#windowlevel-volume').hide();
     jQuery('#opacity-label').show();
     jQuery('#opacity-volume').show();
-    jQuery('#channel .menu').addClass('menuDisabled');
-    
+    if(hasChannels()>1) {
+      jQuery('#greenChannel').hide();
+      jQuery('#blueChannel').hide();
+      jQuery('#redChannel').hide();
+      jQuery('#channel .menu').addClass('menuDisabled');
+      jQuery('#channellevel-label').hide();
+      jQuery('#channellevel-slide').hide();
+      jQuery('#channellevel-btn').hide();
+    }
     volumerenderingOnOff(true);
     
   });
@@ -59,8 +66,17 @@ jQuery(function() {
     jQuery('#opacity-volume').hide();
     jQuery('#windowlevel-label').show();
     jQuery('#windowlevel-volume').show();
-    if(_channels) {
+    if(hasChannels()>1){
       jQuery('#channel .menu').removeClass('menuDisabled');
+      if(hasRGB()) {
+        jQuery('#greenChannel').show();
+        jQuery('#blueChannel').show();
+        jQuery('#redChannel').show();
+        } else {
+          jQuery('#channellevel-label').show();
+          jQuery('#channellevel-slide').show();
+          jQuery('#channellevel-btn').show();
+      }
     }
     
     volumerenderingOnOff(false);

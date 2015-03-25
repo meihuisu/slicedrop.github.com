@@ -70,7 +70,6 @@
 <script type='text/javascript' src='js/x.realtime.js'></script>
 <script type="text/javascript" src="js/xtk.js"></script>
 
-
 <script type="text/javascript"> 
 /*
    window.onload = function () {
@@ -162,9 +161,8 @@ body { background-color: black; }
           <div class='tabbox idTabs' id='channeltabs'>
             <div class='caption'>CHANNEL</div>
             <a href='#channelTab' class='selected' >Channel</a>
-
             <div id='channelTab' class='tabContent'>
-              <div id='channels' style='width: 130px; float: left;'>
+              <div id='channels' style='width: 160px; float: left;'>
                 <div id='redChannel'>
                   <img src='gfx/red.png' />
                 </div>
@@ -174,10 +172,16 @@ body { background-color: black; }
                 <div id='blueChannel'>
                   <img src='gfx/blue.png' />
                 </div>
-                <div id='comboChannel'>
-                  <img src='gfx/combo.png'/>
-                </div>
               </div>
+
+              <div id='channellevel-label' class='menuLabel'
+                style='margin-top: 10px; float: left;'>Channel/Value</div>
+              <div id='channellevel-slide'
+                style='margin-left: 14px; margin-top: 4px; float: left;'></div>
+              <div>
+                <input id='channellevel-btn' type="button" class="btn" style="background-color:#64FFFF; margin-top: 14px; margin-left: 12px; width: 24px;" value='1'>
+              </div>
+
            </div>
          </div>
       </div></li>

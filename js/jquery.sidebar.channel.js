@@ -71,6 +71,20 @@ jQuery(function() {
     changeChannel(2,[0,0,1]);
   });
 
+  jQuery('#channellevel-btn').button();
+  jQuery('#channellevel-btn').unbind('mouseenter').unbind('mouseleave');
+  jQuery('#channellevel-btn').click(function() {
+    var _w=jQuery('#channellevel-btn').attr('value');
+    var _i= parseInt(_w)-1;
+    updateChannel(_i,[0.4,1,1]);
+  });
+
   jQuery('#channels').buttonset();
+
+  jQuery('#channellevel-slide').slider({
+    // connect to x.controller.js
+    slide: channelLevelValue
+  });
+  jQuery('#channellevel-slide').width(110);
   
 });
