@@ -95,18 +95,18 @@ function setupUi() {
       jQuery('#greenChannel').show();
       jQuery('#blueChannel').show();
       jQuery('#redChannel').show();
-      jQuery("#channellevel-slide").slider("option", "disabled", true);
+      jQuery("#channellevel").slider("option", "disabled", true);
       jQuery('#channellevel-label').hide();
-      jQuery('#channellevel-slide').hide();
+      jQuery('#channellevel').hide();
       jQuery('#channellevel-btn').hide();
       } else {
         jQuery('#greenChannel').hide();
         jQuery('#blueChannel').hide();
         jQuery('#redChannel').hide();
         jQuery('#channellevel-label').show();
-        jQuery('#channellevel-slide').show();
+        jQuery('#channellevel').show();
         jQuery('#channellevel-btn').show();
-        jQuery('#channellevel-slide').slider("option", "disabled", false);
+        jQuery('#channellevel').slider("option", "disabled", false);
     }
 
     jQuery('#channel .menu').removeClass('menuDisabled');
@@ -450,6 +450,13 @@ function changeChannel(channel,color) {
     return;
   }
 
+  // if same channel, no need to do anything
+  if( channel == hasChannel()) {
+    return;
+  }
+
+  setChannel(channel);
+
   // need to abandon old one since volume data got updated
   volume.volumeRenderingCache = [];
 
@@ -487,6 +494,7 @@ function updateChannel(channel,color) {
   if (!volume) {
     return;
   }
+
   changeChannel(channel,color);
 
 }
@@ -510,6 +518,7 @@ function channelLevelValue(event, ui) {
      } else {
          var btn=document.getElementById("channellevel-btn");
          btn.value=_s;
+         jQuery('#channellevel-btn').css({'background':'white'})
    }
 }
 

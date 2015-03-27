@@ -291,7 +291,6 @@ Portrait mode for 2D renderers
   border-radius: 4px;
 }
 
-
 #loading {
   text-align: center;
   font-size: 20px;
@@ -334,4 +333,3 @@ background: red;
 position: absolute;
 top: 40%;
 }
-

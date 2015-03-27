@@ -28,7 +28,7 @@
 */
 
 .tabbox {
-	width: 200x;
+	width: 205px;
 	height: 150px;
 }
 
@@ -63,8 +63,8 @@
 
 .tabContent {
 	display: block;
-	width: 178px;
-	height: 134px; 
+	width: 205px;
+	height: 144px; 
 	margin-top: 16px;
 	padding: 10px;
 	border: 1px solid #AFAFAF;
@@ -93,8 +93,8 @@
 .menu {
 	display: block;
 	margin-top: 25px;
-	margin-left: -195px;
-	width: 200px;
+	margin-left: -200px;
+	width: 205px;
 	height: 150px;
 	background-color: #000;
 	opacity: 0.8;

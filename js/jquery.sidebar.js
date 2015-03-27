@@ -31,7 +31,7 @@
 jQuery(function() {
 
   jQuery('.menu').stop().animate({
-    'marginLeft': '-195px'
+    'marginLeft': '-200px'
   }, 1000);
   
   jQuery('.navigationLi').hover(function() {
@@ -67,7 +67,7 @@ jQuery(function() {
     }
     
     jQuery('.menu', jQuery(this)).stop().animate({
-      'marginLeft': '-195px'
+      'marginLeft': '-200px'
     }, 200);
     
   });

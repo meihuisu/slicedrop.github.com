@@ -317,7 +317,8 @@ function createData() {
 /* MEI, this is for managing TIF multi-channels volume data, this
    is assuming that there is just 1 volume */
 var _tiff=false;
-var _channels=0;
+var _channels=0; // how many channels are there.
+var _channelIdx=-1; // which channel is being used
 var _rgb=false;
 function setupChannels(v) {
     if(!_tiff) return;
@@ -326,6 +327,8 @@ function setupChannels(v) {
       _rgb=X.parserTIFF.prototype.isTiffRGB(v);
     }
 }   
+function hasChannel() { return _channelIdx; }
+function setChannel(v) { _channelIdx=v; }
 function hasChannels() { return _channels; } 
 function setTIFF() { _tiff=true; }
 function hasRGB() { return _rgb; }

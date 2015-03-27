@@ -41,6 +41,6 @@ jQuery(function() {
     values: [0, 100],
     slide: thresholdFibers
   });
-  jQuery("#threshold-fibers").width(140);
+  jQuery("#threshold-fibers").width(130);
   
 });

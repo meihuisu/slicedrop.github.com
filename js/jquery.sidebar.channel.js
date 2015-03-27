@@ -30,23 +30,11 @@
 // channel panel javascript
 jQuery(function() {
 
-  jQuery('#comboChannel').button();
-  jQuery('#comboChannel').unbind('mouseenter').unbind('mouseleave');
-  jQuery('#comboChannel').addClass('ui-state-active');
-  jQuery('#comboChannel').click(function() {
-    jQuery('#greenChannel').removeClass('ui-state-active');
-    jQuery('#blueChannel').removeClass('ui-state-active');
-    jQuery('#redChannel').removeClass('ui-state-active');
-    jQuery('#comboChannel').addClass('ui-state-active');
-    changeChannel(0,[1,1,1]);
-  });
-
   jQuery('#redChannel').button();
   jQuery('#redChannel').unbind('mouseenter').unbind('mouseleave');
   jQuery('#redChannel').click(function() {
     jQuery('#greenChannel').removeClass('ui-state-active');
     jQuery('#blueChannel').removeClass('ui-state-active');
-    jQuery('#comboChannel').removeClass('ui-state-active');
     jQuery('#redChannel').addClass('ui-state-active');
     changeChannel(0,[1,0,0]);
   });
@@ -56,7 +44,6 @@ jQuery(function() {
   jQuery('#greenChannel').click(function() {
     jQuery('#redChannel').removeClass('ui-state-active');
     jQuery('#blueChannel').removeClass('ui-state-active');
-    jQuery('#comboChannel').removeClass('ui-state-active');
     jQuery('#greenChannel').addClass('ui-state-active');
     changeChannel(1,[0,1,0]);
   });
@@ -66,25 +53,25 @@ jQuery(function() {
   jQuery('#blueChannel').click(function() {
     jQuery('#redChannel').removeClass('ui-state-active');
     jQuery('#greenChannel').removeClass('ui-state-active');
-    jQuery('#comboChannel').removeClass('ui-state-active');
     jQuery('#blueChannel').addClass('ui-state-active');
     changeChannel(2,[0,0,1]);
   });
 
   jQuery('#channellevel-btn').button();
-  jQuery('#channellevel-btn').unbind('mouseenter').unbind('mouseleave');
+  jQuery('#channellevel-btn').bind('mouseenter').bind('mouseleave');
   jQuery('#channellevel-btn').click(function() {
     var _w=jQuery('#channellevel-btn').attr('value');
     var _i= parseInt(_w)-1;
     updateChannel(_i,[0.4,1,1]);
+    $(this).css({'background':'#0064cd'});
   });
 
   jQuery('#channels').buttonset();
 
-  jQuery('#channellevel-slide').slider({
+  jQuery('#channellevel').slider({
     // connect to x.controller.js
     slide: channelLevelValue
   });
-  jQuery('#channellevel-slide').width(110);
+  jQuery('#channellevel').width(100);
   
 });

@@ -49,7 +49,7 @@ jQuery(function() {
       jQuery('#redChannel').hide();
       jQuery('#channel .menu').addClass('menuDisabled');
       jQuery('#channellevel-label').hide();
-      jQuery('#channellevel-slide').hide();
+      jQuery('#channellevel').hide();
       jQuery('#channellevel-btn').hide();
     }
     volumerenderingOnOff(true);
@@ -74,7 +74,7 @@ jQuery(function() {
         jQuery('#redChannel').show();
         } else {
           jQuery('#channellevel-label').show();
-          jQuery('#channellevel-slide').show();
+          jQuery('#channellevel').show();
           jQuery('#channellevel-btn').show();
       }
     }
