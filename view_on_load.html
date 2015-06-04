@@ -1,7 +1,6 @@
 <!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
 <meta charset="utf-8">
 <!-- 
-
 /*
 
     .----.                    _..._                                                     .-'''-.                           
@@ -39,7 +38,6 @@
 <meta name='viewport', content='width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0' />
 
 <link href='css/bootstrap.css' rel='stylesheet' />
-<link href='css/bootstrap-responsive.css' rel='stylesheet' />
 <link type='text/css' rel='stylesheet' href='css/xtheme/jquery.ui.css' />
 <link type='text/css' rel='stylesheet' href='css/jquery.miniColors.css' />
 <link type='text/css' rel='stylesheet' href='css/jquery.sidebar.css' />
@@ -57,6 +55,7 @@
 <script type='text/javascript' src='js/jquery.idTabs.js'></script>
 <script type='text/javascript' src='js/jquery.sidebar.js'></script>
 <script type='text/javascript' src='js/jquery.sidebar.volume.js'></script>
+<script type='text/javascript' src='js/jquery.sidebar.channel.js'></script>
 <script type='text/javascript' src='js/jquery.sidebar.mesh.js'></script>
 <script type='text/javascript' src='js/jquery.sidebar.fibers.js'></script>
 <script type='text/javascript' src='js/jquery.viewer.js'></script>
@@ -68,11 +67,18 @@
 <script type='text/javascript' src='js/x.scene.js'></script>
 <script type='text/javascript' src='js/x.share.js'></script>
 <script type='text/javascript' src='js/x.realtime.js'></script>
+<!-- for view_debug.html
+<script type="text/javascript" src="x-meihuisu/lib/google-closure-library/closure/goog/base.js"></script>
+<script type="text/javascript" src="x-meihuisu/xtk-deps.js"></script>
+<script type="text/javascript" src="default.js"></script>
+-->
 <script type="text/javascript" src="js/xtk.js"></script>
-
 
 <script type="text/javascript"> 
 /*
+   for view.html
+   window.onload = function () { $.holdReady(false); }
+   for direct call
    window.onload = function () {
       selectfiles([{"name":"http://localhost/data/test.nii", "size":0}]);
    }
@@ -98,9 +104,9 @@ body { background-color: black; }
           <div class='tabbox idTabs' id='volumetabs'>
             <div class='caption'>VOLUME</div>
 
-            <a href='#volumeTab' class='selected'>Volume</a> <a
-              href='#labelmapTab' id='labelmapSwitch'
-              style='margin-left: 50px;'>Labelmap</a>
+            <a href='#volumeTab' class='selected'>Volume</a> 
+            <a href='#labelmapTab' id='labelmapSwitch'
+              style='margin-left: 55px;'>Labelmap</a>
             <div id='volumeTab' class='tabContent'>
 
               <div id='modes' style='width: 130px; float: left;'>
@@ -113,12 +119,12 @@ body { background-color: black; }
               </div>
 
               <div id='colors'
-                style='width: 26px; margin-left: 6px; float: left;'>
+                style='width: 26px; float: right;'>
 
                 <input id='fgColorVolume' type='hidden'
-                  class='color-picker black' size='6' value='#ffffff' /> <input
-                  id='bgColorVolume' type='hidden' class='color-picker black'
-                  size='6' value='#000000' />
+                  class='color-picker black' size='6' value='#ffffff' /> 
+                <input id='bgColorVolume' type='hidden' 
+                  class='color-picker black' size='6' value='#000000' />
               </div>
 
               <div id='opacity-label' class='menuLabel'
@@ -130,17 +136,16 @@ body { background-color: black; }
                 style='margin-top: 4px; float: left;'>Window/Level</div>
               <div id='windowlevel-volume'
                 style='margin-left: 10px; margin-top: 4px; float: left;'></div>
-
-              <div class='menuLabel' style='margin-top: 4px; float: left;'>Threshold</div>
+              <div id='threshold-label' class='menuLabel' 
+                style='margin-top: 4px; float: left;'>Threshold</div>
               <div id='threshold-volume'
                 style='margin-left: 10px; margin-top: 4px; float: left;'></div>
-
 
             </div>
             <div id='labelmapTab' class='tabContent' style='display: none'>
 
 
-              <div id='visibility-labelmap' style='width: 130px; float: left;'>
+              <div id='visibility-labelmap' style='width: 120px; float: left;'>
                 <div class='menuLabel' style='margin-top: 4px; float: left;'>Show/Hide</div>
                 <div id='labelmapvisibility' class='eye show-icon'
                   style='margin-left: 6px;'></div>
@@ -155,6 +160,38 @@ body { background-color: black; }
           </div>
 
         </div></li>
+
+      <li id='channel' class='navigationLi'> <div class='menu'>
+          <div class='pin'>
+            <span class='ui-icon ui-icon-pin-w pinicon'></span>
+          </div>
+          <div class='tabbox idTabs' id='channeltabs' >
+            <div class='caption'>CHANNEL</div>
+            <a href='#channelTab' class='selected' >Channel</a>
+            <div id='channelTab' class='tabContent' >
+              <div id='channels' style='width: 160px; float: left;'>
+                <div id='redChannel'>
+                  <img src='gfx/red.png' />
+                </div>
+                <div id='greenChannel'>
+                  <img src='gfx/green.png' />
+                </div>
+                <div id='blueChannel'>
+                  <img src='gfx/blue.png' />
+                </div>
+
+                <div id='channellevel-label' class='menuLabel'
+                  style='margin-top: 10px; float: left;'>Channel/Value</div>
+
+                <input id='channellevel-btn' type="button" 
+                 class="btn btn-info" value="1"
+                  style='margin-top: 14px; float: right; height: 20px; width:20px;' >
+                <div id='channellevel'
+                  style='margin-left: 14px; margin-top: 4px;float: left;'></div>
+                </div>
+             </div>
+         </div>
+      </div></li>
 
       <li id='mesh' class='navigationLi'><div class='menu'>
           <div class='pin'>
@@ -182,13 +219,11 @@ body { background-color: black; }
 
               <div class='menuLabel'
                 style='margin-top: 4px; float: left; margin-top: 10px;'>Scalars</div>
-              <div id='scalars-mesh' style='width: 160px; float: left;'>
+              <div id='scalars-mesh' style='width: 180px; float: left;'>
 
-                <select id='scalars-selector' style='margin-left: 6px'><option>Scalars
-                    1</option></select> <input type='hidden' class='color-picker black'
-                  id='scalarsMinColor' size='6' value='#00ff00' /> <input
-                  type='hidden' id='scalarsMaxColor' class='color-picker black'
-                  size='6' value='#ff0000' />
+                <select id='scalars-selector' style='margin-left: 6px'><option>Scalars 1</option></select> 
+                  <input type='hidden' class='color-picker black' id='scalarsMinColor' size='6' value='#00ff00' />
+                  <input type='hidden' id='scalarsMaxColor' class='color-picker black' size='6' value='#ff0000' />
               </div>
 
               <div class='menuLabel' style='margin-top: 4px; float: left;'>Scalars

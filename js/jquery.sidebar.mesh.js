@@ -32,8 +32,11 @@ jQuery(function() {
 
   
   jQuery('#meshvisibility').click(function() {
-
     toggleMeshVisibility();
+  });
+
+  jQuery('#mesh-selector').click(function() {
+    toggleMeshSelector();
   });
   
   jQuery('#meshColor').miniColors({
@@ -50,11 +53,11 @@ jQuery(function() {
     letterCase: 'uppercase',
     change: scalarsMaxColor
   });
-  
+
   jQuery("#opacity-mesh").slider({
     slide: opacityMesh
   });
-  jQuery("#opacity-mesh").width(140);
+  jQuery("#opacity-mesh").width(120);
   
   jQuery("#threshold-scalars").dragslider({
     range: true,
@@ -63,6 +66,6 @@ jQuery(function() {
     // connect to x.controller.js
     slide: thresholdScalars
   });
-  jQuery("#threshold-scalars").width(140);
+  jQuery("#threshold-scalars").width(100);
   
 });

@@ -43,7 +43,15 @@ jQuery(function() {
     jQuery('#windowlevel-volume').hide();
     jQuery('#opacity-label').show();
     jQuery('#opacity-volume').show();
-    
+    if(hasChannels()>1) {
+      jQuery('#greenChannel').hide();
+      jQuery('#blueChannel').hide();
+      jQuery('#redChannel').hide();
+      jQuery('#channel .menu').addClass('menuDisabled');
+      jQuery('#channellevel-label').hide();
+      jQuery('#channellevel').hide();
+      jQuery('#channellevel-btn').hide();
+    }
     volumerenderingOnOff(true);
     
   });
@@ -58,6 +66,18 @@ jQuery(function() {
     jQuery('#opacity-volume').hide();
     jQuery('#windowlevel-label').show();
     jQuery('#windowlevel-volume').show();
+    if(hasChannels()>1){
+      jQuery('#channel .menu').removeClass('menuDisabled');
+      if(hasRGB()) {
+        jQuery('#greenChannel').show();
+        jQuery('#blueChannel').show();
+        jQuery('#redChannel').show();
+        } else {
+          jQuery('#channellevel-label').show();
+          jQuery('#channellevel').show();
+          jQuery('#channellevel-btn').show();
+      }
+    }
     
     volumerenderingOnOff(false);
     

@@ -87,7 +87,9 @@ function loadFile(file) {
   }
 
 //MEI from jquery.frontpage.js
-  ren3d.camera.position = ren3d_camera_position;
+  if(ren3d_camera_position != null) {
+    ren3d.camera.position = ren3d_camera_position;
+  }
 
   ren3d.render();
 

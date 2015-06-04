@@ -35,6 +35,12 @@
 
 jQuery(document).ready(function() {
 
+/*
+  var userInfo="userInfo:"+navigator.userAgent;
+  alertify.confirm(userInfo);
+  window.console.log(userInfo);
+*/
+
   detect_viewingmode();
 
   initBrowserWarning();
@@ -43,6 +49,7 @@ jQuery(document).ready(function() {
 
   ren3d = null;
   configurator = function() {
+
   };
 
   // from http://stackoverflow.com/a/7826782/1183453

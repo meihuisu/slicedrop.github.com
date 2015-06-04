@@ -28,7 +28,7 @@
 */
 
 .tabbox {
-	width: 200x;
+	width: 205px;
 	height: 150px;
 }
 
@@ -63,8 +63,8 @@
 
 .tabContent {
 	display: block;
-	width: 178px;
-	height: 134px;
+	width: 205px;
+	height: 144px; 
 	margin-top: 16px;
 	padding: 10px;
 	border: 1px solid #AFAFAF;
@@ -74,6 +74,7 @@
   -khtml-border-bottom-right-radius: 2px;
   -khtml-border-top-right-radius: 2px;	
 }
+
 
 .navigation {
 	position: fixed;
@@ -92,8 +93,8 @@
 .menu {
 	display: block;
 	margin-top: 25px;
-	margin-left: -195px;
-	width: 200px;
+	margin-left: -200px;
+	width: 205px;
 	height: 150px;
 	background-color: #000;
 	opacity: 0.8;
@@ -143,6 +144,10 @@
 	cursor:pointer;
 }
 
-.show-icon { width: 16px; height: 18px; background-image: url(../gfx/show.png); }
+.channeltabs {
+	cursor:pointer;
+}
 
-.hide-icon { width: 16px; height: 18px; background-image: url(../gfx/hide.png); }
+.show-icon { width: 18px; height: 18px; background-image: url(../gfx/show.png); }
+
+.hide-icon { width: 18px; height: 18px; background-image: url(../gfx/hide.png); }

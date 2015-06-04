@@ -139,6 +139,8 @@ function initializeRenderers(){
     processingDiv.style.visibility = 'hidden';
     if (_data.volume.file.length > 0) {
 
+       if(_tiff) setupChannels(volume);
+
       // show any volume also in 2d
        sliceAx.add(volume);
        sliceSag.add(volume);
@@ -269,7 +271,7 @@ function createData() {
   // volume (.nrrd,.mgz,.mgh)
   // labelmap (.nrrd,.mgz,.mgh)
   // colortable (.txt,.lut)
-  // mesh (.stl,.vtk,.fsm,.smoothwm,.inflated,.sphere,.pial,.orig)
+  // mesh (.stl,.vtk,.fsm,.smoothwm,.inflated,.sphere,.pial,.orig,.obj)
   // scalars (.crv)
   // fibers (.trk)
 
@@ -280,7 +282,7 @@ function createData() {
    'volume': {
      'file': [],
      'filedata': [],
-     'extensions': ['NRRD', 'MGZ', 'MGH', 'NII', 'GZ', 'DCM', 'DICOM']
+     'extensions': ['NRRD', 'MGZ', 'MGH', 'NII', 'TIF', 'TIFF', 'GZ', 'DCM', 'DICOM']
    },
    'labelmap': {
      'file': [],
@@ -312,8 +314,27 @@ function createData() {
 
 }
 
+/* MEI, this is for managing TIF multi-channels volume data, this
+   is assuming that there is just 1 volume */
+var _tiff=false;
+var _channels=0; // how many channels are there.
+var _channelIdx=-1; // which channel is being used
+var _rgb=false;
+function setupChannels(v) {
+    if(!_tiff) return;
+    _channels=X.parserTIFF.prototype.isTiffMultiChannel(v);
+    if(_channels == 3) { 
+      _rgb=X.parserTIFF.prototype.isTiffRGB(v);
+    }
+}   
+function hasChannel() { return _channelIdx; }
+function setChannel(v) { _channelIdx=v; }
+function hasChannels() { return _channels; } 
+function setTIFF() { _tiff=true; }
+function hasRGB() { return _rgb; }
+
 /*MEI*/var remote=true;
-/*MEI*/ var remote_data_location = 'https://cirm-dev.misd.isi.edu/data/';
+/*MEI*/var remote_data_location = 'https://cirm-dev.misd.isi.edu/data/';
 // var remote_data_location = 'http://localhost/data/';
 
 // Reading files using the HTML5 FileReader.
@@ -357,13 +378,16 @@ function read(files) {
 
    }
 
-   var _fileSize = f.size;
-
    // check which type of file it is
    if (_data['volume']['extensions'].indexOf(_fileExtension) >= 0) {
 
      _data['volume']['file'].push(f);
 
+// SPECIAL CASE: MEI, need to grab this from meta data in the future
+     if(_fileExtension === "TIF" || _fileExtension === "TIFF") {
+// grab this from somewhere..  window.console.log("found TIF file");
+         setTIFF();
+     }
 
    } else if (_data['colortable']['extensions'].indexOf(_fileExtension) >= 0) {
 
@@ -397,7 +421,6 @@ function read(files) {
   // number of total files
   var _numberOfFiles = files.length;
   var _numberRead = 0;
-  //MEI window.console.log('Total new files:', _numberOfFiles);
 
   //
   // the HTML5 File Reader callbacks
@@ -458,10 +481,8 @@ function read(files) {
            var _file = remote_data_location + myfile;
            if (myfile.substring(0,4) == 'http') {
                // external url detected
-//MEI window.console.log(' >>REMOTE<<, Using external supplied data url: ' + myfile);
               _file = myfile;
            } else {
-//MEI window.console.log('Using data url: ' + _file);
            }
 
 
@@ -483,17 +504,18 @@ function read(files) {
                }
            }
            http_request.onreadystatechange = function() {
-//MEI window.console.log('readyState '+ this.readyState +' status '+this.status);
               if (this.readyState == 4) {
                 if (this.status == 200) {
-//MEI             window.console.timeEnd('httpRequestTime');
+//window.console.timeEnd('httpRequestTime');
                   var remote_data=http_request.response;
+                  var len=remote_data.byteLength;
                   _data[v]['filedata'][_data[v]['file'].indexOf(u)] = remote_data;
+                  _data[v]['file'][_data[v]['file'].indexOf(u)].size = len;
+
                   _numberRead++;
-//MEI window.console.log(" >>REMOTE<<, _data index is at ->" + _data[v]['file'].indexOf(u));
                   if (_numberRead == _numberOfFiles) {
 
-//MEI                 window.console.time('parseRemoteTime');
+//window.console.time('parseRemoteTime');
                       var loadingDiv = document.getElementById('loading');
                       loadingDiv.style.display = 'none';
                       var processingDiv = document.getElementById('processing');
@@ -541,7 +563,6 @@ function parse(data) {
       data['volume']['filedata'].shift();
 
     } else {
-
       // we swap them and configure the second one as a labelmap
       _smaller_volume = data['volume']['file'][1];
       _smaller_data = data['volume']['filedata'][1];
@@ -581,19 +602,16 @@ function parse(data) {
 
    // add callbacks for computing
    volume.onComputing = function(direction) {
-window.console.log("---> onComputing.."+direction);
      //console.log('computing', direction);
     var processingDiv = document.getElementById('processing');
     processingDiv.style.visibility = 'visible';
    }
 
    volume.onComputingProgress = function(value) {
-window.console.log("---> onComputingProgress.."+value);
      //console.log(value);
    }
 
    volume.onComputingEnd = function(direction) {
-window.console.log("---> onComputingEnd.."+direction);
      //console.log('computing end', direction);
     var processingDiv = document.getElementById('processing');
     processingDiv.style.visibility = 'hidden';
@@ -616,32 +634,69 @@ window.console.log("---> onComputingEnd.."+direction);
 
   }
 
+/*
+ what can we have
+  1 mesh
+  n mesh
+  1 mesh + 1 mesh_scalars
+  n mesh + n mesh_scalars
+  final default mesh is meshs[0]
+*/
+  meshs=[];
   if (data['mesh']['file'].length > 0) {
 
    // we have a mesh
-   mesh = new X.mesh();
-   mesh.file = data['mesh']['file'].map(function(v) {
-
+   meshfile = data['mesh']['file'].map(function(v) {
      return v.name;
-
    });
-   mesh.filedata = data['mesh']['filedata'];
-
+   meshfiledata = data['mesh']['filedata'];
+   // we have scalars
    if (data['scalars']['file'].length > 0) {
-
-     // we have scalars
-     mesh.scalars.file = data['scalars']['file'].map(function(v) {
-
+     // bad...
+     if (data['mesh']['file'].length != data['scalars']['file'].length) {
+         alertify.confirm("number of mesh files does not match number of scalars files!!");
+     }
+     meshscalarsfile = data['scalars']['file'].map(function(v) {
        return v.name;
-
      });
-     mesh.scalars.filedata = data['scalars']['filedata'];
-
+     meshscalarsfiledata = data['scalars']['filedata'];
    }
 
-   // add the mesh
-   ren3d.add(mesh);
+   for ( var i = 0; i < data['mesh']['file'].length; i++) {
+     mesh = new X.mesh();
+     mesh.file=meshfile[i];
+     mesh.filedata=meshfiledata[i]
+     if (data['scalars']['file'].length > 0) {
+       mesh.scalars.file=meshscalarsfile[i];
+       mesh.scalars.filedata = meshscalarsfiledata[i];
+// assign some color, [0..1]
+       } else { 
+         if(i>0) { 
+           var o=(1 / data['mesh']['file'].length) * i;
+           var skip= (i+1) %3;
+           var offset=(Math.floor(o * 100))/100;
+           switch (skip) {
+             case 0:
+               mesh.color = [offset, 0, 0];
+               break;        
+             case 1:
+               mesh.color = [offset, 0, offset];
+               break;        
+             case 2:
+               mesh.color = [0, 0, offset];
+               break;        
+           }
+           } else {
+               mesh.color = [1, 1, 1];
+         }
+     }
+     mesh.opacity=1.0;
 
+     // add the mesh
+     ren3d.add(mesh);
+     meshs.push(mesh);
+   }
+   mesh=meshs[0];
   }
 
   if (data['fibers']['file'].length > 0) {

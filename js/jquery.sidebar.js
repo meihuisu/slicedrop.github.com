@@ -31,7 +31,7 @@
 jQuery(function() {
 
   jQuery('.menu').stop().animate({
-    'marginLeft': '-195px'
+    'marginLeft': '-200px'
   }, 1000);
   
   jQuery('.navigationLi').hover(function() {
@@ -67,7 +67,7 @@ jQuery(function() {
     }
     
     jQuery('.menu', jQuery(this)).stop().animate({
-      'marginLeft': '-195px'
+      'marginLeft': '-200px'
     }, 200);
     
   });
@@ -84,19 +84,21 @@ jQuery(function() {
   // activate the tab boxes
   // .. for volumes
   jQuery("#volumetabs").idTabs("!mouseover");
-  // .. for meshes
-  jQuery(".meshtabs").bind('mouseenter', function() {
-
-    jQuery('.meshtabs').removeClass('selected');
+  // .. for channels
+  jQuery(".channeltabs").bind('mouseenter', function() {
+    jQuery('.channeltabs').removeClass('selected');
     jQuery(this).addClass("selected");
     
   });
+  // .. for meshes
+  jQuery(".meshtabs").bind('mouseenter', function() {
+    jQuery('.meshtabs').removeClass('selected');
+    jQuery(this).addClass("selected");
+  });
   // .. for fibers
   jQuery(".fiberstabs").bind('mouseenter', function() {
-
     jQuery('.fiberstabs').removeClass('selected');
     jQuery(this).addClass("selected");
-    
   });
   
   // a show/hide button
