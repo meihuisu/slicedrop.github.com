@@ -148,6 +148,6 @@
 	cursor:pointer;
 }
 
-.show-icon { width: 18px; height: 18px; background-image: url(../gfx/show.png); }
+.show-icon { width: 16px; height: 18px; background-image: url(../gfx/show.png); }
 
-.hide-icon { width: 18px; height: 18px; background-image: url(../gfx/hide.png); }
+.hide-icon { width: 16px; height: 18px; background-image: url(../gfx/hide.png); }

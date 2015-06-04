@@ -602,16 +602,19 @@ function parse(data) {
 
    // add callbacks for computing
    volume.onComputing = function(direction) {
+window.console.log("---> onComputing.."+direction);
      //console.log('computing', direction);
     var processingDiv = document.getElementById('processing');
     processingDiv.style.visibility = 'visible';
    }
 
    volume.onComputingProgress = function(value) {
+window.console.log("---> onComputingProgress.."+value);
      //console.log(value);
    }
 
    volume.onComputingEnd = function(direction) {
+window.console.log("---> onComputingEnd.."+direction);
      //console.log('computing end', direction);
     var processingDiv = document.getElementById('processing');
     processingDiv.style.visibility = 'hidden';
