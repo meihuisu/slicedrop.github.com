@@ -76,6 +76,15 @@
 <script type="text/javascript" src="js/default.js"></script>
 
 <script type="text/javascript"> 
+window.onload = function() {
+  var chk=webgl_detect();
+  if (chk == false) {
+    alertify.confirm("There is no webgl!!");
+    /* take out the load button */
+    document.getElementById('loadbtn').style.visibility = 'hidden';
+    throw new Error("WebGL is not enabled!");
+  }
+}
 /*
    for view.html
    window.onload = function () { $.holdReady(false); }
@@ -94,7 +103,7 @@ body { background-color: black; }
 </head>
 <body id='body' class='webgl_enabled'>
   <!-- The viewer -->
-  <input id="loadbtn" type="button" value="load"  onclick="this.style.visibility='hidden'; $.holdReady(false);" />
+  <input id="loadbtn" type="button" value="load"  onclick="this.style.visibility='hidden'; $.holdReady(false); "/>
   <div id='viewer' style='display: none;'>
 
     <ul class='navigation'>

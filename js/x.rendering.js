@@ -482,10 +482,7 @@ function read(files) {
            if (myfile.substring(0,4) == 'http') {
                // external url detected
               _file = myfile;
-           } else {
            }
-
-
 
 	   var http_request= new XMLHttpRequest();
            http_request.onprogress = function (evt) {
@@ -524,8 +521,12 @@ function read(files) {
 //MEI                 window.console.timeEnd('parseRemoteTime');
                   }
                 } else {
+                  if (this.status == 404) {
+                     throw new Error("File does not exist! "+_file);
+                  } else {
 //MEI, reset it
-                  $('#loading-progress-bar > div').css('background','red');
+                    $('#loading-progress-bar > div').css('background','red');
+                  }
                 }
               }
            }
@@ -575,7 +576,9 @@ function parse(data) {
 
   }
 
-  if (data['volume']['file'].length > 0) {
+//MEI, can only be 1
+//   if (data['volume']['file'].length > 0) {
+   if (data['volume']['file'].length == 1) {
 
    // we have a volume
    volume = new X.volume();
@@ -602,20 +605,17 @@ function parse(data) {
 
    // add callbacks for computing
    volume.onComputing = function(direction) {
-window.console.log("---> onComputing.."+direction);
-     //console.log('computing', direction);
+//window.console.log("---> onComputing.."+direction);
     var processingDiv = document.getElementById('processing');
     processingDiv.style.visibility = 'visible';
    }
 
    volume.onComputingProgress = function(value) {
-window.console.log("---> onComputingProgress.."+value);
-     //console.log(value);
+//window.console.log("---> onComputingProgress.."+value);
    }
 
    volume.onComputingEnd = function(direction) {
-window.console.log("---> onComputingEnd.."+direction);
-     //console.log('computing end', direction);
+//window.console.log("---> onComputingEnd.."+direction);
     var processingDiv = document.getElementById('processing');
     processingDiv.style.visibility = 'hidden';
    }
@@ -635,6 +635,10 @@ window.console.log("---> onComputingEnd.."+direction);
    // add the volume
    ren3d.add(volume);
 
+   } else {
+     if (data['volume']['file'].length > 1) {
+       throw new Error("Can not specify more than 1 volume data");
+     }
   }
 
 /*
@@ -646,6 +650,7 @@ window.console.log("---> onComputingEnd.."+direction);
   final default mesh is meshs[0]
 */
   meshs=[];
+  mesh=null;
   if (data['mesh']['file'].length > 0) {
 
    // we have a mesh

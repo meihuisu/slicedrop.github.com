@@ -55,6 +55,8 @@ function loadFile(file) {
 
   var _fileExtension = file.split('.').pop().toUpperCase();
 
+  mesh=null;
+  meshs=[];
   // check which type of file it is
   if (_data['volume']['extensions'].indexOf(_fileExtension) >= 0) {
 
@@ -71,6 +73,7 @@ function loadFile(file) {
     mesh.file = _file;
     _data.mesh.file = [mesh.file];
     ren3d.add(mesh);
+    meshs.push(mesh);
 
   } else if (_data['fibers']['extensions'].indexOf(_fileExtension) >= 0) {
 
@@ -117,5 +120,13 @@ function loadFile(file) {
 //MEI      $('#share').show();
 
   };
+
+/* It looks like this is called from case like this,
+..index.html?http://localhost/data/lefthemisphere.smoothwm
+   and so needs to explicitly remove the 'loading file' progress
+   bar here.
+*/
+   var loadingDiv = document.getElementById('loading');
+   loadingDiv.style.display = 'none';
 
 }

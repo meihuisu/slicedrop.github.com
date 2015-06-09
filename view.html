@@ -41,10 +41,13 @@
 <link type='text/css' rel='stylesheet' href='css/xtheme/jquery.ui.css' />
 <link type='text/css' rel='stylesheet' href='css/jquery.miniColors.css' />
 <link type='text/css' rel='stylesheet' href='css/jquery.sidebar.css' />
+<link type='text/css' rel='stylesheet' href='css/alertify.core.css' />
+<link type='text/css' rel='stylesheet' href='css/alertify.default.css' />
 <link type='text/css' rel='stylesheet' href='css/frontpage.css' />
 <link type='text/css' rel='stylesheet' href='css/viewer.css' />
 
 <script type='text/javascript' src='js/jquery.js'></script>
+<script type='text/javascript' src='js/alertify.min.js'></script>
 <script>
     $.holdReady(true);
 </script>
@@ -67,7 +70,7 @@
 <script type='text/javascript' src='js/x.scene.js'></script>
 <script type='text/javascript' src='js/x.share.js'></script>
 <script type='text/javascript' src='js/x.realtime.js'></script>
-<!-- for view_debug.html
+<!-- for view_debug.html 
 <script type="text/javascript" src="X/lib/google-closure-library/closure/goog/base.js"></script>
 <script type="text/javascript" src="X/xtk-deps.js"></script>
 <script type="text/javascript" src="js/default.js"></script>
@@ -75,7 +78,17 @@
 <script type="text/javascript" src="js/xtk.js"></script>
 
 <script type="text/javascript"> 
-   window.onload = function () { $.holdReady(false); }
+window.onload = function() {
+  var chk=webgl_detect();
+  if (chk == false) {
+    alertify.confirm("There is no webgl!!");
+    /* take out the load button */
+    document.getElementById('loadbtn').style.visibility = 'hidden';
+    throw new Error("WebGL is not enabled!");
+    } else {
+      $.holdReady(false);
+  }
+}
 /*
    for view.html
    window.onload = function () { $.holdReady(false); }
@@ -87,6 +100,7 @@
 </script> 
 <style>
 body { background-color: black; }
+.alertify { color: green; }
 </style>
 
 
@@ -199,42 +213,46 @@ body { background-color: black; }
           </div>
           <div class='tabbox idTabs'>
             <div class='caption'>MESH</div>
-
-            <a class='meshtabs selected'>Mesh 1</a>
+            <a class='meshtabs selected'>Mesh</a>
             <div id='mesh1' class='tabContent'>
 
               <div id='visibility-mesh'
-                style='width: 140px; float: left; margin-top: 2px;'>
+                style='width: 170px; float: left;'>
                 <div class='menuLabel' style='margin-top: 4px; float: left;'>Show/Hide</div>
                 <div id='meshvisibility' class='eye show-icon'
-                  style='margin-left: 6px;'></div>
+                  style='margin-left: 6px; margin-top: 6px;'></div>
+                <select id='mesh-selector' style='margin-left: 6px; background: black; font-size: extra-small;'></select>
               </div>
 
-              <input type='hidden' id='meshColor' class='color-picker black'
-                size='6' value='#0000ff' />
+              <div id='opacity-menu'>
+                <div class='menuLabel' style='float: left;'>Opacity</div>
+              </div>
 
-              <div class='menuLabel' style='margin-top: 4px; float: left;'>Opacity</div>
-              <div id='opacity-mesh'
-                style='margin-left: 10px; margin-top: 4px; float: left;'></div>
+              <div id='color-mesh' class='menuLabel' style='margin-top:6px; float:right;'>
+                <input type='hidden' id='meshColor' class='color-picker black' size='6' value='#71777a' />
+              </div>
+              <div id='opacity-mesh' style='margin-left: 10px; margin-top:50px; float left;'></div>
 
-              <div class='menuLabel'
+              <div id='scalars-mesh' style='width: 180px; margin-top: 4px;float: left;'>
+                <div class='menuLabel'
                 style='margin-top: 4px; float: left;'>Scalars</div>
-              <div id='scalars-mesh' style='width: 180px; float: left;'>
-
-                <select id='scalars-selector' style='margin-left: 6px'><option>Scalars
-                    1</option></select> <input type='hidden' class='color-picker black'
-                  id='scalarsMinColor' size='6' value='#00ff00' /> <input
-                  type='hidden' id='scalarsMaxColor' class='color-picker black'
-                  size='6' value='#ff0000' />
+                <select id='scalars-selector' style='margin-left: 6px; background: black; font-size: extra-small;'></select>
               </div>
 
-              <div class='menuLabel' style='margin-top: 4px; float: left;'>Scalars
-                Threshold</div>
-              <div id='threshold-scalars'
-                style='margin-left: 10px; margin-top: 4px; float: left;'></div>
+              <div id='threshold-mesh'>
+                <div class='menuLabel' style='margin-top: 4px; float: left;'>Scalars Threshold</div>
+              </div>
 
+              <div id='threshold-scalars' style='margin-left: 10px; margin-top: 4px; float: left;'>
+              </div>
+
+              <div id='d' class='menuLabel' style='margin-top: -8px; float:right;'>
+                  <input id='scalarsMinColor' type='hidden' 
+                    class='color-picker black' size='6' value='#71777a' /> 
+                  <input id='scalarsMaxColor' type='hidden' 
+                    class='color-picker black' size='6' value='#71777a' /> 
+              </div>
             </div>
-
           </div>
         </div></li>
 

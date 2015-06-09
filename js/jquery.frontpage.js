@@ -65,7 +65,8 @@ jQuery(document).ready(function() {
 
       if (arg.indexOf('=') == -1)
       {
-          argsParsed[arg.replace(new RegExp('/$'),'').trim()] = true;
+          var _url=arg.replace(new RegExp('/$'),'').trim();
+          argsParsed[_url] = true;
       }
       else
       {
@@ -179,7 +180,6 @@ var _current_3d_content = null;
 var _current_Ax_content = null;
 var _current_Sag_content = null;
 var _current_Cor_content = null;
-
 
 function showLarge(el2, new3d_content) {
 

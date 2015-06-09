@@ -190,11 +190,12 @@ function setupUi() {
     jQuery('#scalarsMaxColor').miniColors("value", hex);
 
   } else {
-    // init the default meshColor to the current mesh
-    var _meshColor = ((1 << 24) + (mesh.color[0] * 255 << 16) +
+    if (mesh) { // init the default meshColor to the current mesh
+      var _meshColor = ((1 << 24) + (mesh.color[0] * 255 << 16) +
           (mesh.color[1] * 255 << 8) + mesh.color[2] * 255)
           .toString(16).substr(1);
-    jQuery('#meshColor').miniColors("value", _meshColor);
+      jQuery('#meshColor').miniColors("value", _meshColor);
+    }
   }
 
   // FIBERS
@@ -301,7 +302,7 @@ function pre_setupUi() {
 }
 
 //http://stackoverflow.com/questions/11871077/proper-way-to-detect-webgl-support
-function webgl_detect(return_context)
+function webgl_detect()
 {
   if (!!window.WebGLRenderingContext) {
     var canvas = document.createElement("canvas"),
@@ -313,11 +314,6 @@ function webgl_detect(return_context)
         context = canvas.getContext(names[i]);
         if (context && typeof context.getParameter == "function") {
           // WebGL is enabled
-          if (return_context) {
-            // return WebGL object if the function's argument is present
-            return {name:names[i], gl:context};
-          }
-          // else, return just true
           return true;
         }
       } catch(e) {}
@@ -667,6 +663,7 @@ function toggleMeshVisibility() {
 // reset the meshColor
 // reset the opacity
 function toggleMeshSelector() {
+
   if (!mesh) {
     return;
   }
