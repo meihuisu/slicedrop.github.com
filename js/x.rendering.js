@@ -371,6 +371,10 @@ function read(files) {
    var _fileName = f.name;
    var _fileExtension = _fileName.split('.').pop().toUpperCase();
 
+   if (!_fileExtension.match(/^[A-Za-z]+$/)) {
+     throw new Error("File type for "+f.name+" can not be handled!!");
+   }
+
    // check for files with no extension
    if (_fileExtension == _fileName.toUpperCase()) {
 
@@ -410,6 +414,8 @@ function read(files) {
      // this is a fibers file
      _data['fibers']['file'].push(f);
 
+   } else { // unknown file type
+     throw new Error("File type for "+f.name+" can not be handled!!");
    }
 
   }

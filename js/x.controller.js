@@ -691,7 +691,6 @@ function toggleMeshSelector() {
 
 // meshColor
   var _hex=RGBTohex(mesh.color);
-window.console.log("MEI, XXX reset meshColor square "+_hex);
   jQuery('#meshColor').miniColors("value", _hex);
 }
 
