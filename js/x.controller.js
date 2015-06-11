@@ -333,8 +333,11 @@ function volumerenderingOnOff(bool) {
   }
 
   if (bool) {
-// no need to initialize it
-//    volume.lowerThreshold = (volume.min + (volume.max/10));
+// to initialize it only if it is the first time
+    if( (volume.min == volume.lowerThreshold ) &&
+            (volume.max == volume.upperThreshold ) ) {
+      volume.lowerThreshold = (volume.min + (volume.max/10));
+    }
   }
 
   volume.volumeRendering = bool;
