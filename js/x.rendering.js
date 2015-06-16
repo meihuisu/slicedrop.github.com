@@ -510,7 +510,7 @@ function read(files) {
            http_request.onreadystatechange = function() {
               if (this.readyState == 4) {
                 if (this.status == 200) {
-//window.console.timeEnd('httpRequestTime');
+window.console.timeEnd('httpRequestTime');
                   var remote_data=http_request.response;
                   var len=remote_data.byteLength;
                   _data[v]['filedata'][_data[v]['file'].indexOf(u)] = remote_data;
@@ -519,13 +519,13 @@ function read(files) {
                   _numberRead++;
                   if (_numberRead == _numberOfFiles) {
 
-//window.console.time('parseRemoteTime');
+window.console.time('parseProcessTime');
                       var loadingDiv = document.getElementById('loading');
                       loadingDiv.style.display = 'none';
                       var processingDiv = document.getElementById('processing');
                       processingDiv.style.visibility = 'visible';
                       parse(_data);
-//MEI                 window.console.timeEnd('parseRemoteTime');
+window.console.timeEnd('parseProcessTime');
                   }
                 } else {
                   if (this.status == 404) {
@@ -539,7 +539,7 @@ function read(files) {
            }
            http_request.open('GET', _file, true);
            http_request.responseType='arraybuffer';
-//MEI      window.console.time('httpRequestTime');
+window.console.time('httpRequestTime');
            http_request.send(null);
       }
     });
