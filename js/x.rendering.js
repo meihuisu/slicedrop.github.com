@@ -49,6 +49,7 @@ function initializeRenderers(){
     ren3d = new X.renderer3D();
     ren3d.container = '3d';
     ren3d.init();
+
     ren3d.interactor.onTouchStart = ren3d.interactor.onMouseDown = onTouchStart3D;
     ren3d.interactor.onTouchEnd = ren3d.interactor.onMouseUp = onTouchEnd3D;
     ren3d.interactor.onMouseWheel = function(e) {
@@ -705,6 +706,12 @@ function parse(data) {
      meshs.push(mesh);
    }
    mesh=meshs[0];
+   if(meshs.length > 1) {
+// stackoverflow.com/question/17462936/xtk-flickering-in-overlay-mesh
+// resolve multiple mesh transparent object being rendered causing flickering
+// effect
+     ren3d.config.ORDERING_ENABLED=false;
+   }
   }
 
   if (data['fibers']['file'].length > 0) {

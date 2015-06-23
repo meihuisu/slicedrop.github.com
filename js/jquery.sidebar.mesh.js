@@ -35,7 +35,7 @@ jQuery(function() {
     toggleMeshVisibility();
   });
 
-  jQuery('#mesh-selector').click(function() {
+  jQuery('#mesh-selector').change(function() {
     toggleMeshSelector();
   });
   
