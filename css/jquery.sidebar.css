@@ -116,6 +116,7 @@
   -moz-transform: rotate(90deg); /* FF3.5+ */
   -o-transform: rotate(90deg); /* Opera 10.5 */
   -webkit-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
 }
 
 .menuLabel {
