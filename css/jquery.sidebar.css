@@ -113,10 +113,11 @@
   margin: -3px;
   font-size: smaller;
   letter-spacing: 1px;
-  -moz-transform: rotate(90deg); /* FF3.5+ */
-  -o-transform: rotate(90deg); /* Opera 10.5 */
   -webkit-transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
+     -moz-transform: rotate(90deg); /* FF3.5+ */
+      -ms-transform: rotate(90deg); /* IE */
+       -o-transform: rotate(90deg); /* Opera 10.5 */
+          transform: rotate(90deg); 
 }
 
 .menuLabel {
