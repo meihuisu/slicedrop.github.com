@@ -65,7 +65,7 @@ jQuery(document).ready(function() {
 
       if (arg.indexOf('=') == -1)
       {
-          var _url=arg.replace(new RegExp('/$'),'').trim();
+          var _url=encodeURI(arg.replace(new RegExp('/$'),'').trim());
           argsParsed[_url] = true;
       }
       else
@@ -73,7 +73,7 @@ jQuery(document).ready(function() {
           kvp = arg.split('=');
           if(kvp[0].trim() == 'url') {
 // MEI, special handling
-              var _url=kvp[1].replace(new RegExp('/$'),'').trim();
+              var _url=encodeURI(kvp[1].replace(new RegExp('/$'),'').trim());
               if('url' in argsParsed ) {
                 argsParsed['url'].push({"name":_url, "size":0});
               } else {  

@@ -539,6 +539,7 @@ window.console.timeEnd('parseProcessTime');
               }
            }
            http_request.open('GET', _file, true);
+window.console.log("opening.."+_file);
            http_request.responseType='arraybuffer';
 window.console.time('httpRequestTime');
            http_request.send(null);
