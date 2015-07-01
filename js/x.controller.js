@@ -48,6 +48,8 @@ function setupUi() {
         [volume.min, volume.max]);
 
     volume.windowHigh = volume.max;
+    volume.windowLow=volume.min; // MEI
+//printDebug("setupUI, volume "+volume.min+ " " + volume.max);
 
     // update 3d opacity
     jQuery('#opacity-volume').slider("option", "value", 20);
@@ -250,6 +252,7 @@ function resetUi() {
     jQuery('#windowlevel-volume').dragslider("option", "values",
         [volume.min, volume.max]);
     volume.windowHigh = volume.max;
+//printDebug("resetUI, volume "+volume.min+ " " + volume.max);
   }
 }
 
@@ -358,6 +361,7 @@ function thresholdVolume(event, ui) {
 
   volume.lowerThreshold = ui.values[0];
   volume.upperThreshold = ui.values[1];
+//printDebug("thresholdVolume.. "+volume.lowerThreshold+ " " +volume.upperThreshold);
 
   if (RT.linked) {
 
@@ -379,6 +383,8 @@ function windowLevelVolume(event, ui) {
 
   volume.windowLow = ui.values[0];
   volume.windowHigh = ui.values[1];
+
+//printDebug("calling windowLevelVolume.."+voluem.windowLow+ " "+volume.windowHigh);
 
   if (RT.linked) {
 
