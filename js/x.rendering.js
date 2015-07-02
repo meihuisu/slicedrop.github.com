@@ -377,6 +377,11 @@ function read(files) {
      throw new Error("File type for "+f.name+" can not be handled!!");
    }
 
+   // unknown file type, probably a bad file name
+   if (!_fileExtension.match(/^[A-Z]+$/)) {
+     throw new Error("File type for "+f.name+" can not be handled!!");
+   }
+
    // check for files with no extension
    if (_fileExtension == _fileName.toUpperCase()) {
 
@@ -665,6 +670,10 @@ function parse(data) {
   n mesh + n mesh_scalars
   final default mesh is meshs[0]
 */
+  default_meshcolor = [[1.00, 0.80, 0.40], /* eggyoke yellow */
+                       [0.53, 0.90, 0.90], /* light aqua */
+                       [1.00, 0.46, 0.19] /* light orange */
+                      ];
   meshs=[];
   mesh=null;
   if (data['mesh']['file'].length > 0) {
@@ -686,7 +695,8 @@ function parse(data) {
      meshscalarsfiledata = data['scalars']['filedata'];
    }
 
-   for ( var i = 0; i < data['mesh']['file'].length; i++) {
+   var meshcnt=data['mesh']['file'].length;
+   for ( var i = 0; i < meshcnt; i++) {
      mesh = new X.mesh();
      mesh.file=meshfile[i];
      mesh.filedata=meshfiledata[i]
@@ -694,25 +704,30 @@ function parse(data) {
        mesh.scalars.file=meshscalarsfile[i];
        mesh.scalars.filedata = meshscalarsfiledata[i];
 // assign some color, [0..1]
+// default, first one is skull, 2nd one is Maxilla, 3rd one is Mandible
        } else { 
-         if(i>0) { 
-           var o=(1 / data['mesh']['file'].length) * i;
-           var skip= (i+1) %3;
-           var offset=(Math.floor(o * 100))/100;
-           switch (skip) {
-             case 0:
-               mesh.color = [offset, 0, 0];
-               break;        
-             case 1:
-               mesh.color = [offset, 0, offset];
-               break;        
-             case 2:
-               mesh.color = [0, 0, offset];
-               break;        
-           }
-           } else {
-               mesh.color = [1, 1, 1];
-         }
+         if(meshcnt == 1) {
+           mesh.color = [1, 1, 1];
+         } else {
+           if (i<default_meshcolor.length) {
+             mesh.color = default_meshcolor[i];
+             } else {
+               var o=(1 / data['mesh']['file'].length) * i;
+               var skip= (i+1) %3;
+               var offset=(Math.floor(o * 100))/100;
+               switch (skip) {
+                 case 0:
+                   mesh.color = [offset, 0, 0];
+                   break;        
+                 case 1:
+                   mesh.color = [offset, 0, offset];
+                   break;        
+                 case 2:
+                   mesh.color = [0, 0, offset];
+                   break;        
+               }
+          }
+        }
      }
      mesh.opacity=1.0;
 
