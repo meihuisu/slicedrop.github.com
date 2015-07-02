@@ -146,7 +146,10 @@ function setupUi() {
    for ( var i = 0; i < meshs.length; i++) {
      var _mesh = meshs[i];
      var n=_mesh.file;
+     var nn=n.split('/').pop().toLowerCase().split('.').shift();
+/*
      var nn=n.split('/').pop().substring(0,3).toLowerCase();
+*/
      var nnn='<option value='+i+'>'+nn+'</option>';
      jQuery('#mesh-selector').append(nnn);
    }
@@ -166,7 +169,10 @@ function setupUi() {
     // Not sure how multiple scalars can be handled ???
     var i=_data.scalars.file.length-1;
     var n=_data.scalars.file[i].name;
+/*
     var nn=n.split('/').pop().substring(0,12).toLowerCase();
+*/
+    var nn=n.split('/').pop().toLowerCase().split('.').shift();
     var nnn='<option value='+i+'>'+nn+'</option>';
 
     jQuery("#scalars-selector").append(nnn);

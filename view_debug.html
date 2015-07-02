@@ -70,12 +70,13 @@
 <script type='text/javascript' src='js/x.scene.js'></script>
 <script type='text/javascript' src='js/x.share.js'></script>
 <script type='text/javascript' src='js/x.realtime.js'></script>
-<!-- for view_debug.html
+<!-- for view_debug.html -->
 <script type="text/javascript" src="X/lib/google-closure-library/closure/goog/base.js"></script>
 <script type="text/javascript" src="X/xtk-deps.js"></script>
 <script type="text/javascript" src="js/default.js"></script>
--->
+<!--
 <script type="text/javascript" src="js/xtk.js"></script>
+-->
 
 <script type="text/javascript"> 
 window.onload = function() {
@@ -220,7 +221,7 @@ body { background-color: black; }
                 <div class='menuLabel' style='margin-top: 4px; float: left;'>Show/Hide</div>
                 <div id='meshvisibility' class='eye show-icon'
                   style='margin-left: 6px; margin-top: 6px;'></div>
-                <select id='mesh-selector' style='margin-left: 6px; background: black; font-size: extra-small;'></select>
+                <select id='mesh-selector' style='max-width:70px; margin-left: 6px; background: black; font-size: extra-small; overflow:hidden'></select>
               </div>
 
               <div id='opacity-menu'>
@@ -235,7 +236,7 @@ body { background-color: black; }
               <div id='scalars-mesh' style='width: 180px; margin-top: 4px;float: left;'>
                 <div class='menuLabel'
                 style='margin-top: 4px; float: left;'>Scalars</div>
-                <select id='scalars-selector' style='margin-left: 6px; background: black; font-size: extra-small;'></select>
+                <select id='scalars-selector' style='max-width:120px;margin-left: 6px; background: black; font-size: extra-small; overflow:hidden'></select>
               </div>
 
               <div id='threshold-mesh'>

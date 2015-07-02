@@ -693,6 +693,9 @@ function parse(data) {
        return v.name;
      });
      meshscalarsfiledata = data['scalars']['filedata'];
+     } else { /* disable the scalars-selector */
+       var p = document.getElementById("scalars-selector");
+       p.disabled = true;
    }
 
    var meshcnt=data['mesh']['file'].length;
