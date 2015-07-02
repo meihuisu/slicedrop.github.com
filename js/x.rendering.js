@@ -370,6 +370,12 @@ function read(files) {
 
    var _fileName = f.name;
    var _fileExtension = _fileName.split('.').pop().toUpperCase();
+   window.console.log("file name is .."+_fileName);
+   window.console.log("file extension is .."+_fileExtension);
+
+   if (!_fileExtension.match(/^[A-Za-z]+$/)) {
+     throw new Error("File type for "+f.name+" can not be handled!!");
+   }
 
    // check for files with no extension
    if (_fileExtension == _fileName.toUpperCase()) {
@@ -410,6 +416,8 @@ function read(files) {
      // this is a fibers file
      _data['fibers']['file'].push(f);
 
+   } else { // unknown file type
+     throw new Error("File type for "+f.name+" can not be handled!!");
    }
 
   }
@@ -502,9 +510,12 @@ function read(files) {
                }
            }
            http_request.onreadystatechange = function() {
+window.console.log("httpRequest : state "+this.readyState + " status "+this.status);
+var msg="httpRequest : state "+this.readyState + " status "+this.status;
+//printDebug(msg);
               if (this.readyState == 4) {
                 if (this.status == 200) {
-//window.console.timeEnd('httpRequestTime');
+window.console.timeEnd('httpRequestTime');
                   var remote_data=http_request.response;
                   var len=remote_data.byteLength;
                   _data[v]['filedata'][_data[v]['file'].indexOf(u)] = remote_data;
@@ -513,13 +524,13 @@ function read(files) {
                   _numberRead++;
                   if (_numberRead == _numberOfFiles) {
 
-//window.console.time('parseRemoteTime');
+window.console.time('parseRemoteTime');
                       var loadingDiv = document.getElementById('loading');
                       loadingDiv.style.display = 'none';
                       var processingDiv = document.getElementById('processing');
                       processingDiv.style.visibility = 'visible';
                       parse(_data);
-//MEI                 window.console.timeEnd('parseRemoteTime');
+window.console.timeEnd('parseRemoteTime');
                   }
                 } else {
                   if (this.status == 404) {
@@ -532,8 +543,9 @@ function read(files) {
               }
            }
            http_request.open('GET', _file, true);
+window.console.log("opening.."+_file);
            http_request.responseType='arraybuffer';
-//MEI      window.console.time('httpRequestTime');
+window.console.time('httpRequestTime');
            http_request.send(null);
       }
     });
@@ -549,6 +561,8 @@ function parse(data) {
 
   // initialize renderers
   initializeRenderers();
+
+  printDebug("in parse call");
 
   // check for special case if a volume, a labelmap and a colortable was dropped
   if (data['volume']['file'].length == 2 && data['colortable']['file'].length == 1) {
@@ -635,6 +649,7 @@ function parse(data) {
 
    // add the volume
    ren3d.add(volume);
+   printDebug("in parse call -- add volume");
 
    } else {
      if (data['volume']['file'].length > 1) {
