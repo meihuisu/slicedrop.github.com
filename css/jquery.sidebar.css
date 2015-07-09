@@ -153,3 +153,14 @@
 .show-icon { width: 16px; height: 18px; background-image: url(../gfx/show.png); }
 
 .hide-icon { width: 16px; height: 18px; background-image: url(../gfx/hide.png); }
+.eye:hover { background-color: #0064CD; }
+.eye:active { background-color: white; }
+
+.refresh-icon { width: 16px; height: 18px; background-image: url(../gfx/refresh.png); }
+.refresh:hover { background-color: #0064CD; }
+.refresh:active { background-color: white; }
+
+.exclude-icon { width: 16px; height: 18px; background-image: url(../gfx/exclude.png); }
+
+.exclude:hover { background-color: #0064CD; }
+.exclude:active { background-color: white; }

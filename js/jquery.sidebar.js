@@ -105,9 +105,13 @@ jQuery(function() {
   jQuery('.eye').button();
   jQuery('.eye').unbind('mouseenter').unbind('mouseleave');
   jQuery('.eye').click(function() {
-
     jQuery('.eye').toggleClass('show-icon').toggleClass('hide-icon');
-    
   });
+
+  jQuery('.refresh').button();
+  jQuery('.refresh').unbind('mouseenter').unbind('mouseleave');
+
+  jQuery('.exclude').button();
+  jQuery('.exclude').unbind('mouseenter').unbind('mouseleave');
   
 });

@@ -157,7 +157,6 @@ function setupUi() {
     jQuery('#mesh .menu').removeClass('menuDisabled');
 
   } else {
-
     // no mesh
     jQuery('#mesh .menu').addClass('menuDisabled');
 
@@ -673,8 +672,53 @@ function toggleMeshVisibility() {
 
 }
 
-// grab which mesh id
-// update mesh
+
+// iterate through all meshes
+// update mesh properties
+// for visiblility to be true, leave the
+// selector at current mesh
+function refreshMeshVisibility() {
+
+  // fix up the current one
+  var i=jQuery("#mesh-selector").val();
+
+  var _mesh= meshs[i];
+  if(!_mesh.visible) {
+    $('#meshvisibility').addClass('show-icon');
+    $('#meshvisibility').removeClass('hide-icon');
+  }
+
+  for ( i = 0; i < meshs.length; i++) {
+     _mesh = meshs[i];
+     _mesh.visible=true;
+  }
+}
+
+// iterate through all meshes
+// update mesh properties
+// for visiblility to be false, leave the
+// selector at current mesh
+function excludeMeshVisibility() {
+
+  // fix up the current one
+  var i=jQuery("#mesh-selector").val();
+
+  var _mesh= meshs[i];
+  if(_mesh.visible) {
+    $('#meshvisibility').addClass('hide-icon');
+    $('#meshvisibility').removeClass('show-icon');
+  }
+
+  for ( i = 0; i < meshs.length; i++) {
+     _mesh = meshs[i];
+     _mesh.visible=false;
+  }
+}
+
+
+
+// grab which mesh id user picked
+// update mesh properties
 // reset the eyeball
 // reset the meshColor
 // reset the opacity
@@ -686,9 +730,8 @@ function toggleMeshSelector() {
 
   var i=jQuery("#mesh-selector").val();
 
-  // new mesh
+  // pick up new current mesh
   mesh=meshs[i];
-
 // eye
   if(mesh.visible) {
       $('#meshvisibility').addClass('show-icon');

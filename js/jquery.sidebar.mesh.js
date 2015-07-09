@@ -35,6 +35,14 @@ jQuery(function() {
     toggleMeshVisibility();
   });
 
+  jQuery('#refresh-mesh').click(function() {
+    refreshMeshVisibility();
+  });
+
+  jQuery('#exclude-mesh').click(function() {
+    excludeMeshVisibility();
+  });
+
   jQuery('#mesh-selector').change(function() {
     toggleMeshSelector();
   });
@@ -57,7 +65,7 @@ jQuery(function() {
   jQuery("#opacity-mesh").slider({
     slide: opacityMesh
   });
-  jQuery("#opacity-mesh").width(120);
+  jQuery("#opacity-mesh").width(100);
   
   jQuery("#threshold-scalars").dragslider({
     range: true,

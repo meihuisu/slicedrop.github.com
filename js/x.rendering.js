@@ -370,8 +370,6 @@ function read(files) {
 
    var _fileName = f.name;
    var _fileExtension = _fileName.split('.').pop().toUpperCase();
-   window.console.log("file name is .."+_fileName);
-   window.console.log("file extension is .."+_fileExtension);
 
    if (!_fileExtension.match(/^[A-Za-z]+$/)) {
      throw new Error("File type for "+f.name+" can not be handled!!");
@@ -515,8 +513,8 @@ function read(files) {
                }
            }
            http_request.onreadystatechange = function() {
-window.console.log("httpRequest : state "+this.readyState + " status "+this.status);
-var msg="httpRequest : state "+this.readyState + " status "+this.status;
+//window.console.log("httpRequest : state "+this.readyState + " status "+this.status);
+//var msg="httpRequest : state "+this.readyState + " status "+this.status;
 //printDebug(msg);
               if (this.readyState == 4) {
                 if (this.status == 200) {
@@ -548,9 +546,7 @@ window.console.timeEnd('parseRemoteTime');
               }
            }
            http_request.open('GET', _file, true);
-window.console.log("opening.."+_file);
            http_request.responseType='arraybuffer';
-window.console.time('httpRequestTime');
            http_request.send(null);
       }
     });
@@ -566,8 +562,6 @@ function parse(data) {
 
   // initialize renderers
   initializeRenderers();
-
-  printDebug("in parse call");
 
   // check for special case if a volume, a labelmap and a colortable was dropped
   if (data['volume']['file'].length == 2 && data['colortable']['file'].length == 1) {
@@ -654,7 +648,6 @@ function parse(data) {
 
    // add the volume
    ren3d.add(volume);
-   printDebug("in parse call -- add volume");
 
    } else {
      if (data['volume']['file'].length > 1) {

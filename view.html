@@ -211,39 +211,42 @@ body { background-color: black; }
           <div class='pin'>
             <span class='ui-icon ui-icon-pin-w pinicon'></span>
           </div>
-          <div class='tabbox idTabs'>
+          <div class='tabbox idTabs' id='meshtabs'>
             <div class='caption'>MESH</div>
-            <a class='meshtabs selected'>Mesh</a>
-            <div id='mesh1' class='tabContent'>
+            <a class='selected'>Mesh</a>
+            <div id='meshTab' class='tabContent'>
 
               <div id='visibility-mesh'
                 style='width: 170px; float: left;'>
                 <div class='menuLabel' style='margin-top: 4px; float: left;'>Show/Hide</div>
-                <div id='meshvisibility' class='eye show-icon'
-                  style='margin-left: 6px; margin-top: 6px;'></div>
-                <select id='mesh-selector' style='max-width:70px; margin-left: 6px; background: black; font-size: extra-small; overflow:hidden'></select>
+                <div id="refresh-mesh" class='refresh refresh-icon'
+                  style='margin-left: 3px; margin-top: 6px;'></div>
+                <div id='exclude-mesh' class='exclude exclude-icon'
+                  style='margin-left: 3px; margin-top: 6px;'></div>
+                <select id='mesh-selector' style='max-width:60px; margin-left: 3px; background: black; font-size: extra-small; overflow:hidden'></select>
               </div>
 
               <div id='opacity-menu'>
                 <div class='menuLabel' style='float: left;'>Opacity</div>
+                <div id='meshvisibility' class='eye show-icon' style='margin-left: 80px; margin-top:10px;'></div>
+                <div id='color-mesh' style='margin-top:6px; float:right;'>
+                  <input type='hidden' id='meshColor' class='color-picker black' size='6' value='#71777a' />
+                </div>
               </div>
-
-              <div id='color-mesh' class='menuLabel' style='margin-top:6px; float:right;'>
-                <input type='hidden' id='meshColor' class='color-picker black' size='6' value='#71777a' />
-              </div>
-              <div id='opacity-mesh' style='margin-left: 10px; margin-top:50px; float left;'></div>
-
-              <div id='scalars-mesh' style='width: 180px; margin-top: 4px;float: left;'>
+              <div id='opacity-mesh' style='margin-top:-8px; float left;'></div>
+              <div id='scalars-mesh' style='width: 180px; margin-top: 4px;float: left;'></div>
+              <div id='scalars-label'>
                 <div class='menuLabel'
-                style='margin-top: 4px; float: left;'>Scalars</div>
-                <select id='scalars-selector' style='max-width:120px;margin-left: 6px; background: black; font-size: extra-small; overflow:hidden'></select>
+                   style='margin-top: 4px; float: left;'>Scalars</div>
               </div>
+              <select id='scalars-selector' style='max-width:120px;margin-left: 6px; background: black; font-size: extra-small; overflow:hidden'></select>
 
               <div id='threshold-mesh'>
-                <div class='menuLabel' style='margin-top: 4px; float: left;'>Scalars Threshold</div>
+                <div class='menuLabel' 
+                   style='margin-top: 4px; float: left;'>Scalars Threshold</div>
               </div>
 
-              <div id='threshold-scalars' style='margin-left: 10px; margin-top: 4px; float: left;'>
+              <div id='threshold-scalars' style='margin-top: 4px; float: left;'>
               </div>
 
               <div id='d' class='menuLabel' style='margin-top: -8px; float:right;'>
@@ -260,12 +263,12 @@ body { background-color: black; }
           <div class='pin'>
             <span class='ui-icon ui-icon-pin-w pinicon'></span>
           </div>
-          <div class='tabbox idTabs'>
+          <div class='tabbox idTabs' id='fiberstabs'>
             <div class='caption'>FIBERS</div>
 
-            <a class='fiberstabs selected'>Fibers 1</a>
+            <a class='selected'>Fibers</a>
 
-            <div id='fibers1' class='tabContent'>
+            <div id='fibersTab' class='tabContent'>
 
               <div id='visibility-fibers'
                 style='width: 140px; float: left; margin-top: 2px;'>
