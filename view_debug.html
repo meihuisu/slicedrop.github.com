@@ -216,44 +216,44 @@ body { background-color: black; }
             <a class='selected'>Mesh</a>
             <div id='meshTab' class='tabContent'>
 
-              <div id='visibility-mesh'
-                style='width: 170px; float: left;'>
+              <div id='visibility-mesh' style='float: left;'>
                 <div class='menuLabel' style='margin-top: 4px; float: left;'>Show/Hide</div>
-                <div id="refresh-mesh" class='refresh refresh-icon'
-                  style='margin-left: 3px; margin-top: 6px;'></div>
-                <div id='exclude-mesh' class='exclude exclude-icon'
-                  style='margin-left: 3px; margin-top: 6px;'></div>
-                <select id='mesh-selector' style='max-width:60px; margin-left: 3px; background: black; font-size: extra-small; overflow:hidden'></select>
-              </div>
-
-              <div id='opacity-menu'>
-                <div class='menuLabel' style='float: left;'>Opacity</div>
-                <div id='meshvisibility' class='eye show-icon' style='margin-left: 80px; margin-top:10px;'></div>
-                <div id='color-mesh' style='margin-top:6px; float:right;'>
+                <select id='mesh-selector' style='max-width:55px; margin-left: 3px; background: black; font-size: extra-small; overflow:hidden'></select>
+                <div id='meshvisibility' class='eye show-icon' style='margin-left: 3px; margin-top:6px;'></div>
+                <div id='color-mesh' style='margin-top:3px; float:right'>
                   <input type='hidden' id='meshColor' class='color-picker black' size='6' value='#71777a' />
                 </div>
               </div>
-              <div id='opacity-mesh' style='margin-top:-8px; float left;'></div>
+
+              <div id='opacity-menu' style='float: left;'>
+                <div style='width=100px; float:left;'>
+                  <div class='menuLabel'>Opacity</div>
+                  <div id='opacity-mesh' style='margin-top:6px;'></div>
+                </div>
+                <div style='float:right; margin-top:10px; margin-left:30px;'>
+                  <div id="refresh-mesh" class='refresh refresh-icon'></div>
+                  <div id='exclude-mesh' class='exclude exclude-icon'></div>
+                </div>
+              </div>
               <div id='scalars-mesh' style='width: 180px; margin-top: 4px;float: left;'></div>
               <div id='scalars-label'>
                 <div class='menuLabel'
                    style='margin-top: 4px; float: left;'>Scalars</div>
+                <select id='scalars-selector' style='max-width:120px;margin-left: 6px; background: black; font-size: extra-small; overflow:hidden'></select>
               </div>
-              <select id='scalars-selector' style='max-width:120px;margin-left: 6px; background: black; font-size: extra-small; overflow:hidden'></select>
 
               <div id='threshold-mesh'>
-                <div class='menuLabel' 
-                   style='margin-top: 4px; float: left;'>Scalars Threshold</div>
-              </div>
+                <div style='width=100px; float:left; margin-top:4px;'>
+                  <div class='menuLabel' >Scalars Threshold</div>
+                  <div id='threshold-scalars' style='margin-top: 6px;'></div>
+                </div>
 
-              <div id='threshold-scalars' style='margin-top: 4px; float: left;'>
-              </div>
-
-              <div id='d' class='menuLabel' style='margin-top: -8px; float:right;'>
+                <div id='d' class='menuLabel' style='float:right; margin-top:4px;'>
                   <input id='scalarsMinColor' type='hidden' 
                     class='color-picker black' size='6' value='#71777a' /> 
                   <input id='scalarsMaxColor' type='hidden' 
                     class='color-picker black' size='6' value='#71777a' /> 
+                </div>
               </div>
             </div>
           </div>
